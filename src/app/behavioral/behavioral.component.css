@@ -1,0 +1,8 @@
+@media screen and (max-width: 812px) {
+  .nav-item{
+    display: inline;
+  }
+  .nav-link {
+    width: 180px;
+  }
+}
