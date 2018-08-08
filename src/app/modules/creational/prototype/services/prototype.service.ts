@@ -9,7 +9,7 @@ export class PrototypeService {
   constructor() {
   }
 
-  createClone() {
+  prototype() {
     const proto = new Keratinocytes();
     const clone = proto.clone();
     // console.log('proto size', proto.size); //1

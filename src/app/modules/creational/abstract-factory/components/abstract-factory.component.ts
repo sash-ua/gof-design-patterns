@@ -19,11 +19,6 @@ export class AbstractFactoryComponent {
 
 
   constructor(public car: AbstractFactoryService) {
-    this.fiesta = this.car.makeCar({name: 'Fiesta', power: 70});
-    this.focus = this.car.makeCar({name: 'Focus', power: 80});
-    this.mustang = this.car.makeCar({name: 'mustang', power: 120});
-    // console.log('AbstractFactory:', this.fiesta);
-    // console.log('AbstractFactory:', this.focus);
-    // console.log('AbstractFactory:', this.mustang);
+    this.car.abstractFactory();
   }
 }

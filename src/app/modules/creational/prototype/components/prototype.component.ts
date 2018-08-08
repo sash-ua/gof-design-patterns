@@ -15,6 +15,6 @@ export class PrototypeComponent {
   public linkName = ELEMENTS.linkToSampleName;
 
   constructor(private protoServ: PrototypeService) {
-    this.protoServ.createClone();
+    this.protoServ.prototype();
   }
 }

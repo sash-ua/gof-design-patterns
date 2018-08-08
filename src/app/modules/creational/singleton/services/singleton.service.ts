@@ -9,7 +9,7 @@ export class SingletonService {
   constructor() {
   }
 
-  showSingleton() {
+  singleton() {
     const sun1 = SunSingleton.SunInstance;
     const sun2 = SunSingleton.SunInstance;
     // console.log('sun1 === sun2', sun1 === sun2); //true

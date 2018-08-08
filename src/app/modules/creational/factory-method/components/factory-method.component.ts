@@ -16,11 +16,6 @@ export class FactoryMethodComponent {
 
 
   constructor(private factoryMethod: FactoryMethodService) {
-    const mustang = this.factoryMethod.createProduct('Mustang');
-    const mustangTurbo = this.factoryMethod.createProduct('Mustang turbo');
-    const focus = this.factoryMethod.createProduct('Focus');
-    // console.log(mustang);
-    // console.log(mustangTurbo);
-    // console.log(focus);
+    this.factoryMethod.factoryMethod();
   }
 }

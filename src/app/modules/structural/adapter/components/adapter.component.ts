@@ -15,8 +15,8 @@ export class AdapterComponent implements OnInit {
   public linkName = ELEMENTS.linkToSampleName;
 
   constructor(private  adapter: AdapterService) {
-    // console.log(this.adapter.adpterObjLvl());    // {body: 'speedUp'}
-    // console.log(this.adapter.adapterClassLvl()); // {body: 'speedUp'}
+    this.adapter.adpterObjLvl();
+    this.adapter.adapterClassLvl();
   }
 
   ngOnInit() {

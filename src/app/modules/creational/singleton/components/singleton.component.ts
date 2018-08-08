@@ -15,6 +15,6 @@ export class SingletonComponent {
   public linkName = ELEMENTS.linkToSampleName;
 
   constructor(private singleton: SingletonService) {
-    this.singleton.showSingleton();
+    this.singleton.singleton();
   }
 }
