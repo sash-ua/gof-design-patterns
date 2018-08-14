@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {WIKI_LINKS} from '../../../../wiki_links';
 import {ELEMENTS} from '../../../../elements';
 import {SAMPLE_LINKS} from '../../../../sample_links';
+import {CalculatorService} from '../services/calculator.service';
 
 @Component({
   selector: 'app-command',
@@ -13,6 +14,14 @@ export class CommandComponent {
   public sampleLink: string = SAMPLE_LINKS.behavioral.command;
   public linkName = ELEMENTS.linkToSampleName;
 
-  constructor() {
+  constructor(private calc: CalculatorService) {
+    this.calc.add([1, 2]);
+    this.calc.cashedResult(0);
+    this.calc.sub([1, 2]);
+    this.calc.div([1, 2]);
+    this.calc.div([1, 0]);
+    this.calc.mult([22, 2]);
+    this.calc.undo();
+    this.calc.mult([22, 3]);
   }
 }
