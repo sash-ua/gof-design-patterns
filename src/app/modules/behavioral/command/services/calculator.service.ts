@@ -26,7 +26,7 @@ export class CalculatorService {
   }
 
   cashedResult(id) {
-    console.log(this.controller.cashedResult(id));
+    // console.log(this.controller.cashedResult(id));
   }
 
   private run(arg: Command) {
@@ -34,18 +34,18 @@ export class CalculatorService {
   }
 
   add(args: [number, number]): void {
-    console.log(this.run(new Add(this.calc, args)));
+    // console.log(this.run(new Add(this.calc, args)));
   }
 
   sub(args: [number, number]): void {
-    console.log(this.run(new Sub(this.calc, args)));
+    // console.log(this.run(new Sub(this.calc, args)));
   }
 
   div(args: [number, number]): void {
-    console.log(this.run(new Div(this.calc, args)));
+    // console.log(this.run(new Div(this.calc, args)));
   }
 
   mult(args: [number, number]): void {
-    console.log(this.run(new Mult(this.calc, args)));
+    // console.log(this.run(new Mult(this.calc, args)));
   }
 }
