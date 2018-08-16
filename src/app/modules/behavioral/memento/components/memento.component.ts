@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {WIKI_LINKS} from '../../../../wiki_links';
 import {ELEMENTS} from '../../../../elements';
 import {SAMPLE_LINKS} from '../../../../sample_links';
+import {MementoService} from '../services/memento.service';
 
 @Component({
   selector: 'app-memento',
@@ -13,6 +14,7 @@ export class MementoComponent {
   public sampleLink: string = SAMPLE_LINKS.behavioral.memento;
   public linkName = ELEMENTS.linkToSampleName;
 
-  constructor() {
+  constructor(private memento: MementoService) {
+    this.memento.memento();
   }
 }
