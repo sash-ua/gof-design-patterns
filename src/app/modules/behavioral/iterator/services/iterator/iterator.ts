@@ -119,5 +119,4 @@ export class ValIterator extends Iterator {
   protected getItem(ind: number) {
     return this.iterable.valueVault[ind];
   }
-
 }

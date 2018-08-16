@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {WIKI_LINKS} from '../../../../wiki_links';
 import {ELEMENTS} from '../../../../elements';
 import {SAMPLE_LINKS} from '../../../../sample_links';
+import {MediatorService} from '../services/mediator.service';
 
 @Component({
   selector: 'app-mediator',
@@ -13,6 +14,7 @@ export class MediatorComponent {
   public sampleLink: string = SAMPLE_LINKS.behavioral.mediator;
   public linkName = ELEMENTS.linkToSampleName;
 
-  constructor() {
+  constructor(private mediator: MediatorService) {
+    this.mediator.mediator();
   }
 }
