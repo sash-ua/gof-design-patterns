@@ -48,12 +48,8 @@ export class MorningState extends State {
   }
 
   protected changeState(man: Man, time: TimeRoutine) {
-    switch (time) {
-      case Time.noon:
-        man.state = new NoonState();
-        break;
-      default:
-        man.state = this;
+    if (Time.noon === time) {
+      man.state = new NoonState();
     }
   }
 }
@@ -64,12 +60,8 @@ export class NoonState extends State {
   }
 
   protected changeState(man: Man, time: TimeRoutine) {
-    switch (time) {
-      case Time.evening:
-        man.state = new EveningState();
-        break;
-      default:
-        man.state = this;
+    if (Time.evening === time) {
+      man.state = new EveningState();
     }
   }
 }
@@ -80,12 +72,8 @@ export class EveningState extends State {
   }
 
   protected changeState(man: Man, time: TimeRoutine) {
-    switch (time) {
-      case Time.night:
-        man.state = new NightState();
-        break;
-      default:
-        man.state = this;
+    if (Time.night === time) {
+      man.state = new NightState();
     }
   }
 }
@@ -96,12 +84,8 @@ export class NightState extends State {
   }
 
   protected changeState(man: Man, time: TimeRoutine) {
-    switch (time) {
-      case Time.morning:
-        man.state = new MorningState();
-        break;
-      default:
-        man.state = this;
+    if (Time.morning === time) {
+      man.state = new MorningState();
     }
   }
 }
