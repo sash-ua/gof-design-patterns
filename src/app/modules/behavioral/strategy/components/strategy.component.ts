@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {WIKI_LINKS} from '../../../../wiki_links';
 import {ELEMENTS} from '../../../../elements';
 import {SAMPLE_LINKS} from '../../../../sample_links';
+import {StrategyService} from '../services/strategy.service';
 
 @Component({
   selector: 'app-strategy',
@@ -13,6 +14,7 @@ export class StrategyComponent {
   public sampleLink: string = SAMPLE_LINKS.behavioral.strategy;
   public linkName = ELEMENTS.linkToSampleName;
 
-  constructor() {
+  constructor(private  strategy: StrategyService) {
+    this.strategy.strategy();
   }
 }
