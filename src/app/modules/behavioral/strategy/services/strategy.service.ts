@@ -18,9 +18,9 @@ export class StrategyService {
       });
     };
 
-    const arr = ARR_GEN(100, 100);
+    // const arr = ARR_GEN(100, 100);
     // console.log( arr);
-    const qStrategy = new SetContext(new QuickSortSrategy());
+    // const qStrategy = new SetContext(new QuickSortSrategy());
     // qStrategy.sort(arr);
     // console.log(qStrategy.result);
   }

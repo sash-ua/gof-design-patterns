@@ -24,7 +24,7 @@ export const SAMPLE_LINKS = {
     memento: 'https://github.com/sash-ua/gof-design-patterns/tree/master/src/app/modules/behavioral/memento/services/memento/',
     observer: 'https://github.com/sash-ua/gof-design-patterns/tree/master/src/app/modules/behavioral/observer/services/observer/',
     state: 'https://github.com/sash-ua/gof-design-patterns/tree/master/src/app/modules/behavioral/state/services/state/',
-    strategy: 'https://github.com/sash-ua/gof-design-patterns/tree/master/src/app/modules/behavioral/strategy/services/strategyty/',
+    strategy: 'https://github.com/sash-ua/gof-design-patterns/tree/master/src/app/modules/behavioral/strategy/services/strategy/',
     templateMethod: 'https://github.com/sash-ua/gof-design-patterns/tree/master/src/app/modules/behavioral/template-method/services/template-method/',
     visitor: 'https://github.com/sash-ua/gof-design-patterns/tree/master/src/app/modules/behavioral/visitor/services/visitor/',
   }
