@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {WIKI_LINKS} from '../../../../wiki_links';
 import {ELEMENTS} from '../../../../elements';
 import {SAMPLE_LINKS} from '../../../../sample_links';
+import {TemplateMethodService} from '../services/template-method.service';
 
 @Component({
   selector: 'app-template-method',
@@ -13,6 +14,7 @@ export class TemplateMethodComponent {
   public sampleLink: string = SAMPLE_LINKS.behavioral.templateMethod;
   public linkName = ELEMENTS.linkToSampleName;
 
-  constructor() {
+  constructor(private  tm: TemplateMethodService) {
+    this.tm.templateMethod();
   }
 }

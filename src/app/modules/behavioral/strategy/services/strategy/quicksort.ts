@@ -17,7 +17,6 @@ export namespace QuickSort {
     swap(arr, i + 1, r);
     return i + 1;
   };
-  // pivot element (r)
   export const run = (arr: Array<number>, p: number, r: number) => {
     const arrLoc = arr.slice();
     const x = (arrL: Array<number>, pr: number, re: number) => {
