@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {WikiPatternDescriptionComponent} from './components/description/wiki-pattern-description.component';
+import {EmbeddedContainerComponent} from './components/container/embedded-container.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
-    WikiPatternDescriptionComponent
+    EmbeddedContainerComponent
   ],
   exports: [
-    WikiPatternDescriptionComponent
+    EmbeddedContainerComponent
   ]
 })
 export class SharedModule { }

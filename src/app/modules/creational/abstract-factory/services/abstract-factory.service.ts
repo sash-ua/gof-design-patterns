@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Car, FiestaFocusCarFactory} from './abstract-factory/abstract-factory-example';
+import {Car, FiestaFocusCarFactory} from './abstract-factory/abstract-factory';
 
 
 @Injectable({

@@ -1,2 +1,4 @@
-<app-wiki-pattern-description [queryString]="wikiLink"></app-wiki-pattern-description>
+<app-embedded-container [queryString]="wikiLink"></app-embedded-container>
+<h3>{{sample}}</h3>
+<pre class="github-content">{{this.content$ | async}}</pre>
 <h3><a [href]="sampleLink" rel="noopener" target="_blank">{{linkName}}</a></h3>

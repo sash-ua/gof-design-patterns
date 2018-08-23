@@ -1,6 +1,8 @@
 iframe {
-  width: 100%;
+  width: 90%;
   height: 350px;
+  margin-left: 50%;
+  transform: translate(-50%);
 }
 
 nav {
@@ -107,3 +109,6 @@ nav .active-link {
   }
 }
 
+.github-content{
+  padding: 0 5%;
+}

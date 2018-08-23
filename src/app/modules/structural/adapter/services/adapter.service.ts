@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {AdapterObjLvl} from './adapter/adapter-object-lvl-example';
-import {AdapterClassLvl} from './adapter/adapter-class-lvl-example';
+import {AdapterObjLvl} from './adapter/adapter-object-lvl';
+import {AdapterClassLvl} from './adapter/adapter-class-lvl';
 
 @Injectable({
   providedIn: 'root'

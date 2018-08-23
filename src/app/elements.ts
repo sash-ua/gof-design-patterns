@@ -1,3 +1,4 @@
 export const ELEMENTS = {
-  linkToSampleName: 'Go to code samples on GitHub'
+  linkToSampleName: 'Go to code samples on GitHub',
+  sampleTitle: 'Sample'
 };

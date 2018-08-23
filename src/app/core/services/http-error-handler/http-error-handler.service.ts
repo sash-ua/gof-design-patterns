@@ -1,0 +1,19 @@
+import {Injectable} from '@angular/core';
+import {Observable, of, throwError} from 'rxjs';
+import {HttpErrorResponse} from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HttpErrorHandlerService {
+
+  constructor() {
+  }
+
+  public handleError<T>(serviceName = '') {
+    return (e: HttpErrorResponse): Observable<boolean> => {
+      console.error(`Code: ${e.status}, \n Body: ${e.error} in ${serviceName}`);
+      return of(false);
+    };
+  }
+}

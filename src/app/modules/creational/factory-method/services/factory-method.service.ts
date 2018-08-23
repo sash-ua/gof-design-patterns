@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Car, FocusFactory, MustangFactory, ProductFactory} from './factory-method/factory-method-example';
+import {Car, FocusFactory, MustangFactory, ProductFactory} from './factory-method/factory-method';
 
 @Injectable({
   providedIn: 'root'

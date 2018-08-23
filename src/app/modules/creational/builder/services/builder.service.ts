@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Builder, Director, Building, ConstructionBuilder, ConstructionDirector} from './builder/builder-example';
+import {Builder, Director, Building, ConstructionBuilder, ConstructionDirector} from './builder/builder';
 
 
 @Injectable({

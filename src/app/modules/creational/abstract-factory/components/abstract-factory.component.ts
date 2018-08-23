@@ -1,24 +1,33 @@
-import {Component} from '@angular/core';
-import {WIKI_LINKS} from '../../../../wiki_links';
+import {AfterViewInit, Component} from '@angular/core';
 import {AbstractFactoryService} from '../services/abstract-factory.service';
-import {SAMPLE_LINKS} from '../../../../sample_links';
+import {LINKS} from '../../../../LINKS';
 import {ELEMENTS} from '../../../../elements';
+import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-abstract-factory',
   templateUrl: './abstract-factory.component.html',
   styleUrls: ['./abstract-factory.component.css']
 })
-export class AbstractFactoryComponent {
-  public wikiLink: string = WIKI_LINKS.creational.abstractFactory;
-  public sampleLink: string = SAMPLE_LINKS.creational.abstractFactory;
+export class AbstractFactoryComponent implements AfterViewInit {
+  private gitLink = LINKS.creational.abstractFactory.gitApiLink;
+  public wikiLink: string = LINKS.creational.abstractFactory.wikiLink;
+  public sampleLink: string = LINKS.creational.abstractFactory.sampleLink;
   public linkName = ELEMENTS.linkToSampleName;
-  public fiesta: string;
-  public focus: string;
-  public mustang: string;
+  public sample = ELEMENTS.sampleTitle;
+  public content$: Observable<any>;
 
-
-  constructor(public car: AbstractFactoryService) {
+  constructor(public car: AbstractFactoryService, private http: GetGitContentService) {
     this.car.abstractFactory();
+  }
+
+  ngAfterViewInit() {
+    this.content$ = this.http.getData(this.gitLink).pipe(
+      map((resp: any) => {
+        return resp ? atob(resp.content) : null;
+      })
+    );
   }
 }

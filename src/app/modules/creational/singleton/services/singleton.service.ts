@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {SunSingleton} from './singleton/singleton-example';
+import {SunSingleton} from './singleton/singleton';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {OneOfFordCar, FordFiesta, FordMustang} from './bridge/bridge-example';
+import {OneOfFordCar, FordFiesta, FordMustang} from './bridge/bridge';
 
 @Injectable({
   providedIn: 'root'

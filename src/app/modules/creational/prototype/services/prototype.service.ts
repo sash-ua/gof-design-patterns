@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Keratinocytes} from './prototype/prototype-example';
+import {Keratinocytes} from './prototype/prototype';
 
 @Injectable({
   providedIn: 'root'
