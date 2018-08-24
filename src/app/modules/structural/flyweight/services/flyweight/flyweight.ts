@@ -1,3 +1,15 @@
+export function flyweight() {
+  const printer = new Printer();
+  const printA = printer.get('a');
+  printA.config({value: 'a'});
+  // console.log(printA.draw());
+  const printB = printer.get('b');
+  printB.config({value: 'b'});
+  // console.log(printB.draw());
+  // console.log(printB);
+  printer.remove('a');
+}
+
 export type State = { value: string, font?: string, color?: string };
 
 export class Printer {
@@ -7,20 +19,20 @@ export class Printer {
     this.pool.set(key, new Character());
   }
 
-  public get(key: string) {
+  public get(key: string): Symbol {
     if (!this.pool.has(key)) {
       this.set(key);
     }
     return this.pool.get(key);
   }
 
-  public remove(key: string) {
+  public remove(key: string): void {
     this.pool.delete(key);
   }
 }
 
 interface Symbol {
-  config(config: State);
+  config(config: State): void;
 
   draw(): string;
 }

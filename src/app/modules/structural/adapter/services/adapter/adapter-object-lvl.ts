@@ -1,10 +1,16 @@
-export type Answer = {body: string};
+export function adpterObjLvl(): void {
+  // console.log(new AdapterObjLvl().request({body: 'go'}));
+}
+
+export interface Answer {
+  body: string;
+}
 
 abstract class TargetInterface<T> {
   public abstract request(obj: T): Answer;
 }
 
-export class AdapterObjLvl<T> extends TargetInterface<T> {
+class AdapterObjLvl<T> extends TargetInterface<T> {
   private adaptee = new RequestAPI();
 
   request(obj: T): Answer {

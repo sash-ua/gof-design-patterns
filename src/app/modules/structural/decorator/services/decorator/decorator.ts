@@ -1,4 +1,9 @@
-export function department(obj: any) {
+export function decorator() {
+  const alex = new Developer({position: 'front-end', name: 'Alex'});
+  console.log(alex.employeeInfo());
+}
+
+function department(obj: any) {
   return <T extends { new(...args: any[]): {} }>(constructor: T) => {
     return class extends constructor {
       department = obj.department;
@@ -9,7 +14,7 @@ export function department(obj: any) {
 type Employee = { position: string, name: string };
 
 @department({department: 'Front-end'})
-export class Developer {
+class Developer {
   private employee: Employee;
   private department: string;
 
@@ -17,7 +22,7 @@ export class Developer {
     this.employee = employee;
   }
 
-  employeeInfo() {
+  public employeeInfo(): string {
     return `Name: ${this.employee.name}, position: ${this.employee.position}, department: ${this.department}`;
   }
 }

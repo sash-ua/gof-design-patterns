@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {AdapterObjLvl} from './adapter/adapter-object-lvl';
-import {AdapterClassLvl} from './adapter/adapter-class-lvl';
+import {adpterObjLvl} from './adapter/adapter-object-lvl';
+import {adapterClassLvl} from './adapter/adapter-class-lvl';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,10 @@ export class AdapterService {
   }
 
   adpterObjLvl(): void {
-    // console.log(new AdapterObjLvl().request({body: 'go'}));
+    adpterObjLvl();
   }
 
   adapterClassLvl(): void {
-    // console.log(new AdapterClassLvl().request({body: 'go'}));
+    adapterClassLvl();
   }
 }

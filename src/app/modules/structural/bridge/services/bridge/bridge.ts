@@ -1,49 +1,63 @@
-// The abstraction
-abstract class Car {
+export function bridge() {
+  // const fiesta = new OneOfFordCar(new FordFiesta());
+  // console.log(fiesta.name());
+  // console.log(fiesta.currSpeed());
+  // fiesta.start();
+  // console.log(fiesta.currSpeed());
+  // fiesta.speedUp(200);
+  // console.log(fiesta.currSpeed());
+  // fiesta.speedUp(250);
+  // console.log(fiesta.currSpeed());
+  // const mustang = new OneOfFordCar(new FordMustang());
+  // console.log(mustang.name());
+  // console.log(mustang.currSpeed());
+  // mustang.start();
+  // console.log(mustang.currSpeed());
+  // mustang.speedUp(200);
+  // console.log(mustang.currSpeed());
+  // mustang.speedUp(270);
+  // console.log(mustang.currSpeed());
+}
 
+abstract class Car {
   protected constructor(public car: Vehicle) {
   }
 
-  public abstract name();
+  public abstract name(): string;
 
-  public abstract start();
+  public abstract start(): void;
 
-  public abstract speedUp(sp: number);
+  public abstract speedUp(sp: number): void;
 
-  public abstract currSpeed();
+  public abstract currSpeed(): number;
 }
 
-// The refined abstraction
-export class OneOfFordCar extends Car {
-  // Refined abstraction get implementer.
+class OneOfFordCar extends Car {
   public constructor(public car: Vehicle) {
     super(car);
   }
 
-  name() {
+  public name(): string {
     return this.car.name;
   }
 
-  start() {
+  public start(): void {
     this.car.start();
   }
 
-  speedUp(sp: number) {
+  public speedUp(sp: number): void {
     this.car.speedUp(sp);
   }
 
-  currSpeed() {
+  public currSpeed(): number {
     return this.car.currSpeed();
   }
 }
 
-// The implementer's abstraction
-export interface Vehicle {
+interface Vehicle {
   name: string;
-  speed: number;
-  speedLimit: number;
 
-  start();
+  start(): void;
 
   speedUp(speed: number): void;
 
@@ -51,9 +65,9 @@ export interface Vehicle {
 }
 
 abstract class FordCar implements Vehicle {
-  name: string;
-  speed: number;
-  speedLimit: number;
+  public name: string;
+  protected speed: number;
+  protected speedLimit: number;
 
   public start() {
     if (this.speed === 0) {
@@ -70,22 +84,20 @@ abstract class FordCar implements Vehicle {
   }
 }
 
-// Concrete implementer
-export class FordFiesta extends FordCar {
-  name = 'Fiesta';
-  speed = 0;
-  speedLimit = 220;
+class FordFiesta extends FordCar {
+  public name = 'Fiesta';
+  protected speed = 0;
+  protected speedLimit = 220;
 
   constructor() {
     super();
   }
 }
 
-// Concrete implementer
-export class FordMustang extends FordCar {
-  name = 'Mustang';
-  speed = 0;
-  speedLimit = 280;
+class FordMustang extends FordCar {
+  public name = 'Mustang';
+  protected speed = 0;
+  protected speedLimit = 280;
 
   constructor() {
     super();

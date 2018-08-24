@@ -1,10 +1,26 @@
-type ElState = {
+export function composite() {
+  const picture = new ComplexEl('Root');
+  const line = new PrimitiveEl('line');
+  const circle = new PrimitiveEl('circle');
+  const pip = new ComplexEl('canvas1');
+  const lineInPip = new PrimitiveEl('line');
+  const outPictureEl = new PrimitiveEl('out');
+  pip.addElement(lineInPip);
+  picture.addElement(line);
+  picture.addElement(circle);
+  picture.addElement(pip);
+  // console.log(picture.getChild(line));
+  // console.log(picture.getChildren());
+  // console.log(picture.getChild(outPictureEl));
+}
+
+interface ElState {
   rawName: string;
   name: Symbol;
   msg: string;
   errMsg: string;
   renderer: Array<string>;
-};
+}
 
 interface Graphic {
   state: ElState;
@@ -21,34 +37,37 @@ interface Graphic {
 }
 
 abstract class VectorGraphicEl implements Graphic {
-  public state: ElState = {
+  protected _state: ElState = {
     rawName: '',
     name: Symbol(),
     msg: '',
     errMsg: 'No such method',
     renderer: []
   };
-
   abstract drawEl(): void;
 
-  addElement(elem: Graphic): void | Error {
+  public get state() {
+    return this._state;
+  }
+
+  public addElement(elem: Graphic): void | Error {
     return new Error(this.state.errMsg);
   }
 
-  getChild(elem: Graphic): Graphic | Error {
+  public getChild(elem: Graphic): Graphic | Error {
     return new Error(this.state.errMsg);
   }
 
-  getChildren(): Map<Symbol, Graphic> | Error {
+  public getChildren(): Map<Symbol, Graphic> | Error {
     return new Error(this.state.errMsg);
   }
 
-  removeEl(): void | Error {
+  public removeEl(): void | Error {
     return new Error(this.state.errMsg);
   }
 }
 
-export class PrimitiveEl extends VectorGraphicEl {
+class PrimitiveEl extends VectorGraphicEl {
   constructor(name: string) {
     super();
     this.state.name = Symbol(name);
@@ -57,7 +76,7 @@ export class PrimitiveEl extends VectorGraphicEl {
     this.drawEl();
   }
 
-  drawEl(): void {
+  public drawEl(): void {
     this.state.renderer.push(this.state.msg);
   }
 }
@@ -67,7 +86,7 @@ interface Node {
 }
 
 export class ComplexEl implements Graphic, Node {
-  public state: ElState = {
+  protected _state: ElState = {
     rawName: '',
     name: Symbol(),
     msg: '',
@@ -83,25 +102,28 @@ export class ComplexEl implements Graphic, Node {
     this.drawEl();
     this.state.rawName = name;
   }
+  public get state() {
+    return this._state;
+  }
 
-  drawEl(): void {
+  public drawEl(): void {
     this.state.renderer.push(this.state.msg);
   }
 
-  addElement(elem: Graphic): void | Error {
+  public addElement(elem: Graphic): void | Error {
     this.nodes.set(elem.state.name, elem);
   }
 
-  getChild(elem: Graphic): Graphic | Error {
+  public getChild(elem: Graphic): Graphic | Error {
     const n: ElState = elem.state;
     return this.nodes.has(n.name) ? this.nodes.get(n.name) : new Error(`Element \'${n.rawName}\' does not exists!`);
   }
 
-  getChildren(): Map<Symbol, Graphic> | Error {
+  public getChildren(): Map<Symbol, Graphic> | Error {
     return this.nodes;
   }
 
-  removeEl(): void | Error {
+  public removeEl(): void | Error {
     this.nodes.delete(this.state.name);
   }
 }

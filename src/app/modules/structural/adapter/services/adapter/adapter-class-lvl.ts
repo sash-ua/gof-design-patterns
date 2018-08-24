@@ -1,4 +1,10 @@
-export type Answer = { body: string };
+export function adapterClassLvl(): void {
+  // console.log(new AdapterClassLvl().request({body: 'go'}));
+}
+
+interface Answer {
+  body: string;
+}
 
 interface TargetInterface<T> {
   request(obj: T): Answer;
@@ -10,7 +16,7 @@ class Adaptee<T> {
   }
 }
 
-export class AdapterClassLvl<T> extends Adaptee<T> implements TargetInterface<T> {
+class AdapterClassLvl<T> extends Adaptee<T> implements TargetInterface<T> {
   constructor() {
     super();
   }
