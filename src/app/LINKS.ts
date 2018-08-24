@@ -3,7 +3,7 @@ export const LINKS = {
     adapter: {
       wikiLink: 'https://en.wikipedia.org/wiki/Adapter_pattern#Overview',
       sampleLink: 'https://github.com/sash-ua/gof-design-patterns/tree/master/src/app/modules/structural/adapter/services/adapter/',
-      gitApiLink: 'https://api.github.com/repos/sash-ua/gof-design-patterns/contents/src/app/modules/structural/adapter/services/adapter/adapter.ts'
+      gitApiLink: 'https://api.github.com/repos/sash-ua/gof-design-patterns/contents/src/app/modules/structural/adapter/services/adapter/adapter-class-lvl.ts'
     },
     bridge: {
       wikiLink: 'https://en.wikipedia.org/wiki/Bridge_pattern#Overview',

@@ -1,3 +1,30 @@
+export function iterator() {
+  const map = new Map();
+  // console.log('map.size', map.size);
+  // console.log('map.set(\'first\', 1)', map.set('first', 1));
+  // console.log('map.set(\'second\', 1)', map.set('second', 2));
+  // console.log('map.size', map.size); // 2
+  // console.log('map.set(\'third\', 1)', map.set('third', 3));
+  // console.log('map.set(\'third\', 1)', map.set('third', 55)); // Error
+  // console.log('map.size', map.size); // 3
+  // console.log('map.set(\'forth\', 1)', map.set('forth', 4));
+  // console.log('map.size', map.size); // 4
+  // console.log('map.get(\'first\')', map.get('first'));
+  // console.log('map.get(\'none\')', map.get('none'));
+  // map.delete('none');
+  // map.delete('first');
+  // console.log('map', map); // 2
+
+  // const keyIterator = map.createKeyIterator();
+  // for (let i = keyIterator.first(); !keyIterator.isDone(); i = keyIterator.next()) {
+  //   console.log(i);
+  // }
+  // const valIterator = map.createValIterator();
+  // for (let i = valIterator.first(); !valIterator.isDone(); i = valIterator.next()) {
+  //   console.log(i);
+  // }
+}
+
 abstract class Collection {
   public keyVault: Array<any> = [];
   public valueVault: Array<any> = [];
@@ -10,11 +37,15 @@ export class Map extends Collection {
     super();
   }
 
-  createKeyIterator() {
+  private getInd(key: any): number {
+    return this.keyVault.indexOf(key);
+  }
+
+  public createKeyIterator() {
     return new KeyIterator(this);
   }
 
-  createValIterator() {
+  public createValIterator() {
     return new ValIterator(this);
   }
 
@@ -22,11 +53,11 @@ export class Map extends Collection {
     return this.keyVault.length;
   }
 
-  has(key: any): boolean {
+  public has(key: any): boolean {
     return this.keyVault.includes(key);
   }
 
-  set(key: any, val: any): boolean | Error {
+  public set(key: any, val: any): boolean | Error {
     let res: boolean | Error;
     if (!this.has(key)) {
       this.keyVault.push(key);
@@ -38,22 +69,18 @@ export class Map extends Collection {
     return res;
   }
 
-  get(key: any): any {
+  public get(key: any): any {
     const ind = this.getInd(key);
     return ind !== -1 ? this.valueVault[ind] : false;
   }
 
-  delete(key: any): boolean {
+  public delete(key: any): boolean {
     const ind = this.getInd(key);
     if (ind !== -1) {
       this.keyVault.splice(ind, 1);
       this.valueVault.splice(ind, 1);
     }
     return this.has(key);
-  }
-
-  private getInd(key: any): number {
-    return this.keyVault.indexOf(key);
   }
 }
 
@@ -70,24 +97,24 @@ interface Enumerator {
 abstract class Iterator implements Enumerator {
   protected current: number;
 
-  constructor(public iterable: Map) {
+  protected constructor(public iterable: Map) {
   }
 
   protected abstract getItem(ind: number);
 
-  first(): any {
+  public first(): any {
     return this.getItem(0);
   }
 
-  currentItem(): any {
+  public currentItem(): any {
     return this.getItem(this.current);
   }
 
-  next(): any {
+  public next(): any {
     return this.current++ < this.iterable.size - 1 ? this.getItem(this.current) : null;
   }
 
-  isDone(): boolean {
+  public isDone(): boolean {
     if (this.current < this.iterable.size) {
       return false;
     } else {

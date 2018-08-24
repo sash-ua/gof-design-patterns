@@ -1,3 +1,11 @@
+export function pullObserver() {
+  const sub = new ConcreteSubject();
+  sub.attach(new Observer1(sub));
+  sub.attach(new Observer2(sub));
+  sub.state = 'Some state...';
+  // sub.notify();
+}
+
 abstract class Subject {
   protected observersList: Map<string, Observer> = new Map<string, Observer>();
 
@@ -15,20 +23,27 @@ abstract class Subject {
 }
 
 export class ConcreteSubject extends Subject {
-  private subState: string;
+  private _state: string;
 
   set state(d: string) {
-    this.subState = d;
+    this._state = d;
   }
 
   get state() {
-    return this.subState;
+    return this._state;
   }
 }
 
 abstract class Observer {
   public name: string;
-  protected obsState: string;
+  protected _state: string;
+  public get state() {
+    return this._state;
+  }
+
+  public set state(d: any) {
+    this._state = d;
+  }
 
   abstract update(): void;
 }
@@ -41,10 +56,11 @@ export class Observer1 extends Observer {
   }
 
   public update() {
-    this.obsState = this.subject.state;
-    console.log('Observer 1', this.obsState);
+    this.state = this.subject.state;
+    console.log('Observer 1', this.state);
   }
 }
+
 export class Observer2 extends Observer {
   public name = 'Observer 2';
 
@@ -53,7 +69,7 @@ export class Observer2 extends Observer {
   }
 
   public update() {
-    this.obsState = this.subject.state;
-    console.log('Observer 2', this.obsState);
+    this.state = this.subject.state;
+    console.log('Observer 2', this.state);
   }
 }

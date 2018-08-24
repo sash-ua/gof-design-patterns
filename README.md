@@ -3,8 +3,8 @@
 
 TypeScript examples are integrated into the app.
 For example - bridge pattern.
-1. A `.ts` file with a code example is in `app/modules/structural/bridge/services/bridge`
-2. `bridge.service.ts` contains how to use. Uncomment to see in the console a result.
+1. A files with a code example are in `app/modules/structural/bridge/services/bridge`
+2. `bridge.ts` contains how to use. Uncomment to see in the console a result.
 3. Bridge service injected in the bridge component `app/modules/structural/bridge/components/bridge.component.ts`
 
 ## Contributing

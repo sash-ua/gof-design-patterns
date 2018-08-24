@@ -20,14 +20,7 @@ export class CommandComponent implements AfterViewInit {
   public content$: Observable<any>;
 
   constructor(private calc: CalculatorService, private http: GetGitContentService) {
-    this.calc.add([1, 2]);
-    this.calc.cashedResult(0);
-    this.calc.sub([1, 2]);
-    this.calc.div([1, 2]);
-    this.calc.div([1, 0]);
-    this.calc.mult([22, 2]);
-    this.calc.undo();
-    this.calc.mult([22, 3]);
+    this.calc.calculator();
   }
 
   ngAfterViewInit() {

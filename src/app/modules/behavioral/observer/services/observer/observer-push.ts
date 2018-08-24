@@ -1,3 +1,11 @@
+export function pushObserver() {
+  const subj = new PushConcreteSubject();
+  subj.attach(new PushObserver1());
+  subj.attach(new PushObserver2());
+  subj.state = 'Some state for push example';
+  // subj.notify();
+}
+
 abstract class Subject {
   protected observersList = new Map<string, Observer>();
 
@@ -13,14 +21,14 @@ abstract class Subject {
 }
 
 export class PushConcreteSubject extends Subject {
-  private subjectState: string;
+  private _state: string;
 
   get state(): string {
-    return this.subjectState;
+    return this._state;
   }
 
-  set state(state: string) {
-    this.subjectState = state;
+  set state(d: string) {
+    this._state = d;
   }
 
   public notify(): void {
@@ -30,6 +38,7 @@ export class PushConcreteSubject extends Subject {
 
 abstract class Observer {
   public name: string;
+
   public abstract update(state: string): void;
 }
 
@@ -42,6 +51,7 @@ export class PushObserver1 {
     console.log('Observer 1', this.observerState);
   }
 }
+
 export class PushObserver2 {
   public name = 'Observer 2';
   private observerState: string;

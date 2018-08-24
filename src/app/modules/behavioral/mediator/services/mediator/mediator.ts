@@ -1,3 +1,13 @@
+export function mediatorE() {
+  const mediator = new ConcretMediator();
+  const coll1 = new Colleague1(mediator);
+  const coll2 = new Colleague2(mediator);
+  mediator.c1 = coll1;
+  mediator.c2 = coll2;
+  // coll1.send('msg from 1');
+  // coll2.send('msg from 2');
+}
+
 abstract class Mediator {
   public c1: Colleague;
   public c2: Colleague;
@@ -15,7 +25,7 @@ export class ConcretMediator extends Mediator {
 }
 
 abstract class Colleague {
-  constructor(public mdr: Mediator) {
+  public constructor(public mediator: Mediator) {
   }
 
   abstract send(msg: string);
@@ -25,7 +35,7 @@ abstract class Colleague {
 
 export class Colleague1 extends Colleague {
   send(msg: string) {
-    this.mdr.send(msg, this);
+    this.mediator.send(msg, this);
   }
 
   notify(msg: string) {
@@ -35,7 +45,7 @@ export class Colleague1 extends Colleague {
 
 export class Colleague2 extends Colleague {
   send(msg: string) {
-    this.mdr.send(msg, this);
+    this.mediator.send(msg, this);
   }
 
   notify(msg: string) {

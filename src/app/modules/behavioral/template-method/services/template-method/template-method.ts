@@ -1,3 +1,10 @@
+export function templateMethod() {
+  const a = new GasAnalyzer();
+  // a.analyzer();
+  const b = new WaterAnalyzer();
+  // b.analyzer();
+}
+
 abstract class Analizator {
   protected abstract step1(): void;
 
@@ -9,7 +16,7 @@ abstract class Analizator {
   }
 }
 
-export class GasAnalyzer extends Analizator {
+class GasAnalyzer extends Analizator {
   protected step1(): void {
     console.log('Gas first analyzing stage');
   }
@@ -18,7 +25,7 @@ export class GasAnalyzer extends Analizator {
     console.log('Gas second analyzing stage');
   }
 }
-export class WaterAnalyzer extends Analizator {
+class WaterAnalyzer extends Analizator {
   protected step1(): void {
     console.log('Water first analyzing stage');
   }

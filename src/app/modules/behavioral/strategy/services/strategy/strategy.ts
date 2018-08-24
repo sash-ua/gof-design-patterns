@@ -1,23 +1,37 @@
 import {QuickSort} from './quicksort';
 import {BubbleSort} from './bubblesort';
+import {arrayGen} from './array-generator';
+
+export function strategy() {
+  // const arr = arrayGen(100, 100);
+  // console.log('unsorted', arr);
+  // const qStrategy = new SetContext(new QuickSortStrategy());
+  // qStrategy.sort(arr);
+  // console.log('QuickSortStrategy', qStrategy.result);
+  // const arr2 = arrayGen(100, 100);
+  // console.log('unsorted', arr2);
+  // const bStrategy = new SetContext(new BubbleSortStrategy());
+  // bStrategy.sort(arr2);
+  // console.log('BubbleSortStrategy', bStrategy.result);
+}
 
 abstract class Strategy {
   abstract sort(arr: Array<number>): Array<number>;
 }
 
-export class QuickSortSrategy extends Strategy {
+class QuickSortStrategy extends Strategy {
   public sort(arr: Array<number>): Array<number> {
     return QuickSort.run(arr, 0, arr.length - 1);
   }
 }
 
-export class BubbleSortCtrategy extends Strategy {
+class BubbleSortStrategy extends Strategy {
   public sort(arr: Array<number>): Array<number> {
     return BubbleSort.run(arr);
   }
 }
 
-export class SetContext {
+class SetContext {
   private sortedArray: Array<number> = [];
 
   constructor(private context: Strategy) {

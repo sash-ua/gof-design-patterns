@@ -1,3 +1,10 @@
+export function state() {
+  const man = new Man();
+  // man.behavior(); // 'Morning routine' by default
+  // man.behavior(Time.evening); // morning -> noon, therefore state does not changed
+  // man.behavior(Time.noon);  // 'Noon routine'
+}
+
 export enum Time {
   morning,
   noon,
@@ -7,19 +14,18 @@ export enum Time {
 
 type TimeRoutine = Time.morning | Time.night | Time.noon | Time.evening;
 
-
-export class Man {
+class Man {
   private manState: State;
 
   constructor() {
     this.manState = new MorningState();
   }
 
-  set state(s: State) {
+  public set state(s: State) {
     this.manState = s;
   }
 
-  get state() {
+  public get state() {
     return this.manState;
   }
 
@@ -33,16 +39,16 @@ export class Man {
 }
 
 abstract class State {
+  protected abstract changeState(man: Man, time: TimeRoutine): void;
+
   public handleState(man: Man, time: TimeRoutine) {
     this.changeState(man, time);
   }
 
   public abstract routine();
-
-  protected abstract changeState(man: Man, time: TimeRoutine): void;
 }
 
-export class MorningState extends State {
+class MorningState extends State {
   public routine() {
     console.log('Morning routine');
   }
@@ -54,7 +60,7 @@ export class MorningState extends State {
   }
 }
 
-export class NoonState extends State {
+class NoonState extends State {
   public routine() {
     console.log('Noon routine');
   }
@@ -66,7 +72,7 @@ export class NoonState extends State {
   }
 }
 
-export class EveningState extends State {
+class EveningState extends State {
   public routine() {
     console.log('Evening routine');
   }
@@ -78,7 +84,7 @@ export class EveningState extends State {
   }
 }
 
-export class NightState extends State {
+class NightState extends State {
   public routine() {
     console.log('Night routine');
   }

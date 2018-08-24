@@ -1,4 +1,10 @@
-import {visitValue} from '@angular/compiler/src/util';
+export function visitior() {
+  const controller = new ElementsController();
+  controller.add(new ElementA());
+  controller.add(new ElementB());
+  // controller.accept(new VisitorAlfa());
+  // controller.accept(new VisitorBeta());
+}
 
 abstract class Visitor {
   public abstract visitElementA(elA: ElementA);
@@ -6,7 +12,7 @@ abstract class Visitor {
   public abstract visitElementB(elB: ElementB);
 }
 
-export class VisitorAlfa extends Visitor {
+class VisitorAlfa extends Visitor {
   private name = 'Alfa visitor';
   public visitElementA(el: ElementA): void {
     el.runA(this.name);
@@ -17,7 +23,7 @@ export class VisitorAlfa extends Visitor {
   }
 }
 
-export class VisitorBeta extends Visitor {
+class VisitorBeta extends Visitor {
   private name = 'Beta visitor';
   public visitElementA(el: ElementA): void {
     el.runA(this.name);
@@ -29,17 +35,17 @@ export class VisitorBeta extends Visitor {
 }
 
 abstract class Element {
-  protected elName: string;
+  protected _name: string;
   public name;
 
   public abstract accept(visitor: Visitor): void;
 }
 
-export class ElementA extends Element {
-  protected elName = 'Element A';
+class ElementA extends Element {
+  protected _name = 'Element A';
 
   public get name() {
-    return this.elName;
+    return this._name;
   }
 
   public accept(visitor: Visitor): void {
@@ -47,15 +53,15 @@ export class ElementA extends Element {
   }
 
   public runA(visitorName: string): void {
-    console.log(`${this.elName} executed by ${visitorName}`);
+    console.log(`${this._name} executed by ${visitorName}`);
   }
 }
 
-export class ElementB extends Element {
-  protected elName = 'Element B';
+class ElementB extends Element {
+  protected _name = 'Element B';
 
   public get name() {
-    return this.elName;
+    return this._name;
   }
 
   public accept(visitor: Visitor): void {
@@ -63,11 +69,11 @@ export class ElementB extends Element {
   }
 
   public runB(visitorName: string): void {
-    console.log(`${this.elName} executed by ${visitorName}`);
+    console.log(`${this._name} executed by ${visitorName}`);
   }
 }
 
-export class ElementsController {
+class ElementsController {
   private elements: Map<string, Element> = new Map<string, Element>();
 
   public add(elem: Element): void {
