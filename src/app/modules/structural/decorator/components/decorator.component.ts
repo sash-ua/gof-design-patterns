@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {DecoratorService} from '../services/decorator.service';
@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
   templateUrl: './decorator.component.html',
   styleUrls: ['./decorator.component.css']
 })
-export class DecoratorComponent implements AfterViewInit {
+export class DecoratorComponent {
   private gitLink = LINKS.structural.decorator.gitApiLink;
   public wikiLink: string = LINKS.structural.decorator.wikiLink;
   public sampleLink: string = LINKS.structural.decorator.sampleLink;
@@ -21,9 +21,6 @@ export class DecoratorComponent implements AfterViewInit {
 
   constructor(private decorator: DecoratorService, private http: GetGitContentService) {
     this.decorator.decorator();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

@@ -117,7 +117,7 @@ export const LINKS = {
     visitor:  {
       wikiLink: 'https://en.wikipedia.org/wiki/Visitor_pattern#Overview',
       sampleLink: 'https://github.com/sash-ua/gof-design-patterns/tree/master/src/app/modules/behavioral/visitor/services/visitor/',
-      gitApiLink: 'https://api.github.com/repos/sash-ua/gof-design-patterns/contents/src/app/modules/behavioral/template-method/services/template-method/template-method.ts'
+      gitApiLink: 'https://api.github.com/repos/sash-ua/gof-design-patterns/contents/src/app/modules/behavioral/visitor/services/visitor/visitor.ts'
     },
   }
 };

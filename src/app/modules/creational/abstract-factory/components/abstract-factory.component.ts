@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {AbstractFactoryService} from '../services/abstract-factory.service';
 import {LINKS} from '../../../../LINKS';
 import {ELEMENTS} from '../../../../elements';
@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
   templateUrl: './abstract-factory.component.html',
   styleUrls: ['./abstract-factory.component.css']
 })
-export class AbstractFactoryComponent implements AfterViewInit {
+export class AbstractFactoryComponent {
   private gitLink = LINKS.creational.abstractFactory.gitApiLink;
   public wikiLink: string = LINKS.creational.abstractFactory.wikiLink;
   public sampleLink: string = LINKS.creational.abstractFactory.sampleLink;
@@ -21,9 +21,6 @@ export class AbstractFactoryComponent implements AfterViewInit {
 
   constructor(public car: AbstractFactoryService, private http: GetGitContentService) {
     this.car.abstractFactory();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

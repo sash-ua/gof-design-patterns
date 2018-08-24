@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {CalculatorService} from '../services/calculator.service';
@@ -11,7 +11,7 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
   templateUrl: './command.component.html',
   styleUrls: ['./command.component.css']
 })
-export class CommandComponent implements AfterViewInit {
+export class CommandComponent {
   private gitLink = LINKS.behavioral.command.gitApiLink;
   public wikiLink: string = LINKS.behavioral.command.wikiLink;
   public sampleLink: string = LINKS.behavioral.command.sampleLink;
@@ -21,14 +21,11 @@ export class CommandComponent implements AfterViewInit {
 
   constructor(private calc: CalculatorService, private http: GetGitContentService) {
     this.calc.calculator();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
+        console.log('resp', resp);
         return resp ? atob(resp.content) : null;
       })
     );
   }
-
 }

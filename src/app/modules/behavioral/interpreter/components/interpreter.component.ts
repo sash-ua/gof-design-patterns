@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {InterpreterService} from '../services/interpreter.service';
@@ -11,7 +11,7 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
   templateUrl: './interpreter.component.html',
   styleUrls: ['./interpreter.component.css']
 })
-export class InterpreterComponent implements AfterViewInit {
+export class InterpreterComponent {
   private gitLink = LINKS.behavioral.interpreter.gitApiLink;
   public wikiLink: string = LINKS.behavioral.interpreter.wikiLink;
   public sampleLink: string = LINKS.behavioral.interpreter.sampleLink;
@@ -21,14 +21,10 @@ export class InterpreterComponent implements AfterViewInit {
 
   constructor(private  i: InterpreterService, private http: GetGitContentService) {
     this.i.interpreter();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
   }
-
 }

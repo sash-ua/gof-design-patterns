@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {ObserverService} from '../services/observer.service';
@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
   templateUrl: './observer.component.html',
   styleUrls: ['./observer.component.css']
 })
-export class ObserverComponent implements AfterViewInit {
+export class ObserverComponent {
   private gitLink = LINKS.behavioral.observer.gitApiLink;
   public wikiLink: string = LINKS.behavioral.observer.wikiLink;
   public sampleLink: string = LINKS.behavioral.observer.sampleLink;
@@ -22,9 +22,6 @@ export class ObserverComponent implements AfterViewInit {
   constructor(private obs: ObserverService, private http: GetGitContentService) {
     this.obs.pullObserver();
     this.obs.pushObserver();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

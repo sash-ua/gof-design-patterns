@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {FlyweightService} from '../services/flyweight.service';
@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
   templateUrl: './flyweight.component.html',
   styleUrls: ['./flyweight.component.css']
 })
-export class FlyweightComponent implements AfterViewInit {
+export class FlyweightComponent {
   private gitLink = LINKS.structural.flyweight.gitApiLink;
   public wikiLink: string = LINKS.structural.flyweight.wikiLink;
   public sampleLink: string = LINKS.structural.flyweight.sampleLink;
@@ -21,9 +21,6 @@ export class FlyweightComponent implements AfterViewInit {
 
   constructor(private fl: FlyweightService, private http: GetGitContentService) {
     fl.flyweight();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

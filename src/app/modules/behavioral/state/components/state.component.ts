@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {StateService} from '../services/state.service';
@@ -11,7 +11,7 @@ import {Observable} from 'rxjs';
   templateUrl: './state.component.html',
   styleUrls: ['./state.component.css']
 })
-export class StateComponent implements AfterViewInit {
+export class StateComponent {
   private gitLink = LINKS.behavioral.state.gitApiLink;
   public wikiLink: string = LINKS.behavioral.state.wikiLink;
   public sampleLink: string = LINKS.behavioral.state.sampleLink;
@@ -21,9 +21,6 @@ export class StateComponent implements AfterViewInit {
 
   constructor(private  state: StateService, private http: GetGitContentService) {
     this.state.state();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

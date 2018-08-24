@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {FacadeService} from '../services/facade.service';
@@ -11,7 +11,7 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
   templateUrl: './facade.component.html',
   styleUrls: ['./facade.component.css']
 })
-export class FacadeComponent implements AfterViewInit {
+export class FacadeComponent {
   private gitLink = LINKS.structural.facade.gitApiLink;
   public wikiLink: string = LINKS.structural.facade.wikiLink;
   public sampleLink: string = LINKS.structural.facade.sampleLink;
@@ -21,9 +21,6 @@ export class FacadeComponent implements AfterViewInit {
 
   constructor(private  f: FacadeService, private http: GetGitContentService) {
     f.facade();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

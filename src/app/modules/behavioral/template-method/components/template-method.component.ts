@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import { Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {TemplateMethodService} from '../services/template-method.service';
@@ -11,8 +11,8 @@ import {map} from 'rxjs/operators';
   templateUrl: './template-method.component.html',
   styleUrls: ['./template-method.component.css']
 })
-export class TemplateMethodComponent implements AfterViewInit {
-  private gitLink = LINKS.behavioral.chainOfResponsibility.gitApiLink;
+export class TemplateMethodComponent  {
+  private gitLink = LINKS.behavioral.templateMethod.gitApiLink;
   public wikiLink: string = LINKS.behavioral.templateMethod.wikiLink;
   public sampleLink: string = LINKS.behavioral.templateMethod.sampleLink;
   public linkName = ELEMENTS.linkToSampleName;
@@ -21,9 +21,6 @@ export class TemplateMethodComponent implements AfterViewInit {
 
   constructor(private  tm: TemplateMethodService, private http: GetGitContentService) {
     this.tm.templateMethod();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

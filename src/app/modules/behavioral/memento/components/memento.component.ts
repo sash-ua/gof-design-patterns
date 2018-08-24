@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {MementoService} from '../services/memento.service';
@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
   templateUrl: './memento.component.html',
   styleUrls: ['./memento.component.css']
 })
-export class MementoComponent implements AfterViewInit {
+export class MementoComponent {
   private gitLink = LINKS.behavioral.memento.gitApiLink;
   public wikiLink: string = LINKS.behavioral.memento.wikiLink;
   public sampleLink: string = LINKS.behavioral.memento.sampleLink;
@@ -21,9 +21,6 @@ export class MementoComponent implements AfterViewInit {
 
   constructor(private memento: MementoService, private http: GetGitContentService) {
     this.memento.memento();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

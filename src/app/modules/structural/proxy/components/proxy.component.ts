@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {ProxyService} from '../services/proxy.service';
@@ -11,7 +11,7 @@ import {Observable} from 'rxjs';
   templateUrl: './proxy.component.html',
   styleUrls: ['./proxy.component.css']
 })
-export class ProxyComponent implements AfterViewInit {
+export class ProxyComponent {
   private gitLink = LINKS.structural.proxy.gitApiLink;
   public wikiLink: string = LINKS.structural.proxy.wikiLink;
   public sampleLink: string = LINKS.structural.proxy.sampleLink;
@@ -21,9 +21,6 @@ export class ProxyComponent implements AfterViewInit {
 
   constructor(private proxy: ProxyService, private http: GetGitContentService) {
     this.proxy.proxy();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

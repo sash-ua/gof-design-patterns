@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {BridgeService} from '../services/bridge.service';
@@ -11,7 +11,7 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
   templateUrl: './bridge.component.html',
   styleUrls: ['./bridge.component.css']
 })
-export class BridgeComponent implements AfterViewInit {
+export class BridgeComponent {
   private gitLink = LINKS.structural.bridge.gitApiLink;
   public wikiLink: string = LINKS.structural.bridge.wikiLink;
   public sampleLink: string = LINKS.structural.bridge.sampleLink;
@@ -21,9 +21,6 @@ export class BridgeComponent implements AfterViewInit {
 
   constructor(private bridge: BridgeService, private http: GetGitContentService) {
     bridge.bridge();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

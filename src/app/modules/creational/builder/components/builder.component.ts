@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {BuilderService} from '../services/builder.service';
 import {LINKS} from '../../../../LINKS';
 import {ELEMENTS} from '../../../../elements';
@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
   templateUrl: './builder.component.html',
   styleUrls: ['./builder.component.css']
 })
-export class BuilderComponent implements AfterViewInit {
+export class BuilderComponent {
   private gitLink = LINKS.creational.builder.gitApiLink;
   public wikiLink: string = LINKS.creational.builder.wikiLink;
   public sampleLink: string = LINKS.creational.builder.sampleLink;
@@ -21,9 +21,6 @@ export class BuilderComponent implements AfterViewInit {
 
   constructor(private builder: BuilderService, private http: GetGitContentService) {
     this.builder.buildHouse();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

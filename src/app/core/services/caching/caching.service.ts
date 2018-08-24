@@ -3,8 +3,7 @@ import {GitContentResponse} from '../http/get-git-content.service';
 import {StorageService} from '../storage/storage.service';
 import {HttpResponse} from '@angular/common/http';
 
-const maxAge = 60 * 60000;
-// const cacheName = 'cache';
+const maxAge = 60000;
 
 export interface CacheEntry {
   reqUrl: string;
@@ -47,9 +46,6 @@ export class CachingService {
   public get(reqUrl: string): HttpResponse<GitContentResponse> | undefined {
     this.update();
     const cached = this.cache.get(reqUrl);
-    if (!cached) {
-      return undefined;
-    }
-    return cached.response;
+    return cached ? cached.response : undefined;
   }
 }

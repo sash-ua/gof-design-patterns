@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {VisitorService} from '../services/visitor.service';
@@ -11,8 +11,8 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
   templateUrl: './visitor.component.html',
   styleUrls: ['./visitor.component.css']
 })
-export class VisitorComponent implements AfterViewInit {
-  private gitLink = LINKS.behavioral.chainOfResponsibility.gitApiLink;
+export class VisitorComponent {
+  private gitLink = LINKS.behavioral.visitor.gitApiLink;
   public wikiLink: string = LINKS.behavioral.visitor.wikiLink;
   public sampleLink: string = LINKS.behavioral.visitor.sampleLink;
   public linkName = ELEMENTS.linkToSampleName;
@@ -21,9 +21,6 @@ export class VisitorComponent implements AfterViewInit {
 
   constructor(private visitor: VisitorService, private http: GetGitContentService) {
     this.visitor.visitior();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

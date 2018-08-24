@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {LINKS} from '../../../../LINKS';
 import {ELEMENTS} from '../../../../elements';
 import {PrototypeService} from '../services/prototype.service';
@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
   templateUrl: './prototype.component.html',
   styleUrls: ['./prototype.component.css']
 })
-export class PrototypeComponent implements AfterViewInit {
+export class PrototypeComponent {
   private gitLink = LINKS.creational.prototype.gitApiLink;
   public wikiLink: string = LINKS.creational.prototype.wikiLink;
   public sampleLink: string = LINKS.creational.prototype.sampleLink;
@@ -21,9 +21,6 @@ export class PrototypeComponent implements AfterViewInit {
 
   constructor(private protoServ: PrototypeService, private http: GetGitContentService) {
     this.protoServ.prototype();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

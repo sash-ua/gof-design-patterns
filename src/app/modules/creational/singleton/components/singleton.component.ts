@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {SingletonService} from '../services/singleton.service';
@@ -11,7 +11,7 @@ import {Observable} from 'rxjs';
   templateUrl: './singleton.component.html',
   styleUrls: ['./singleton.component.css']
 })
-export class SingletonComponent implements AfterViewInit {
+export class SingletonComponent {
   private gitLink = LINKS.creational.singleton.gitApiLink;
   public wikiLink: string = LINKS.creational.singleton.wikiLink;
   public sampleLink: string = LINKS.creational.singleton.sampleLink;
@@ -21,8 +21,6 @@ export class SingletonComponent implements AfterViewInit {
 
   constructor(private singleton: SingletonService, private http: GetGitContentService) {
     this.singleton.singleton();
-  }
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;

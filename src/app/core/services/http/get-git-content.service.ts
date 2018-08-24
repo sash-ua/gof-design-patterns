@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpEvent, HttpRequest, HttpResponse} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {catchError, distinctUntilChanged, retry} from 'rxjs/operators';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {catchError, retry} from 'rxjs/operators';
 import {HttpErrorHandlerService} from '../http-error-handler/http-error-handler.service';
-import {e} from '@angular/core/src/render3';
 
 export type GitContentResponse = {
   content: string,
@@ -34,8 +33,9 @@ export class GetGitContentService {
   }
 
   public getData(url: string): Observable<HttpResponse<GitContentResponse>> {
-    return this.http.get<any>(url).pipe(
-      // retry(3),
+    return this.http.get<any>(url)
+      .pipe(
+      retry(3),
       catchError(this.hE.handleError(this.serviceName))
     );
   }

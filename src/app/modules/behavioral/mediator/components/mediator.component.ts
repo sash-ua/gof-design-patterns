@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {MediatorService} from '../services/mediator.service';
@@ -11,7 +11,7 @@ import {Observable} from 'rxjs';
   templateUrl: './mediator.component.html',
   styleUrls: ['./mediator.component.css']
 })
-export class MediatorComponent implements AfterViewInit {
+export class MediatorComponent {
   private gitLink = LINKS.behavioral.mediator.gitApiLink;
   public wikiLink: string = LINKS.behavioral.mediator.wikiLink;
   public sampleLink: string = LINKS.behavioral.mediator.sampleLink;
@@ -21,13 +21,10 @@ export class MediatorComponent implements AfterViewInit {
 
   constructor(private mediator: MediatorService, private http: GetGitContentService) {
     this.mediator.mediator();
-  }
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
   }
-
 }

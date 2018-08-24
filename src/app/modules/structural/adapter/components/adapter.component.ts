@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {AdapterService} from '../services/adapter.service';
@@ -11,7 +11,7 @@ import {Observable} from 'rxjs';
   templateUrl: './adapter.component.html',
   styleUrls: ['./adapter.component.css']
 })
-export class AdapterComponent implements AfterViewInit {
+export class AdapterComponent {
   private gitLink = LINKS.structural.adapter.gitApiLink;
   public wikiLink: string = LINKS.structural.adapter.wikiLink;
   public sampleLink: string = LINKS.structural.adapter.sampleLink;
@@ -22,9 +22,6 @@ export class AdapterComponent implements AfterViewInit {
   constructor(private  adapter: AdapterService, private http: GetGitContentService) {
     this.adapter.adpterObjLvl();
     this.adapter.adapterClassLvl();
-  }
-
-  ngAfterViewInit() {
     this.content$ = this.http.getData(this.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
