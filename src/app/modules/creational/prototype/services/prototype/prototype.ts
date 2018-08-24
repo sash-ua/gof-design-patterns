@@ -1,33 +1,47 @@
-export interface Cell {
-  size: number;
+export function prototype() {
+  const proto = new Keratinocytes();
+  const clone = proto.clone();
+  // console.log('proto size', proto.size);
+  // console.log('clone size', clone.size);
+  proto.feedsOn([1, 2, 3]);
+  // console.log('proto size after eating', proto.size);
+  // console.log('clone size', clone.size);
+}
 
-  eat(nutrients: Array<any>): void;
-
-  growth(m: number): number;
+interface Cell {
+  feedsOn(nutrients: Array<any>): void;
 
   clone(): Cell;
 }
 
 abstract class Epidermis implements Cell {
-  size: number;
+  public abstract size: number;
 
-  abstract eat(nutrients: Array<any>): void;
+  public abstract feedsOn(nutrients: Array<any>): void;
 
-  abstract clone(): Cell;
+  public abstract clone(): Cell;
 
-  growth(m: number): number {
+  protected growth(m: number): number {
     return this.size += m / 10;
   }
 }
 
-export class Keratinocytes extends Epidermis {
-  public size = 1;
+class Keratinocytes extends Epidermis {
+  private _size = 1;
 
   constructor() {
     super();
   }
 
-  eat(nutrients: Array<any>) {
+  public get size(): number {
+    return this._size;
+  }
+
+  public set size(d: number) {
+    this._size = d;
+  }
+
+  public feedsOn(nutrients: Array<any>) {
     this.size = this.growth(nutrients.length);
   }
 

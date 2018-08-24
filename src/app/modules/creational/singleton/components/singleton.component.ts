@@ -12,7 +12,7 @@ import {Observable} from 'rxjs';
   styleUrls: ['./singleton.component.css']
 })
 export class SingletonComponent implements AfterViewInit {
-  private gitLink = LINKS.creational.abstractFactory.gitApiLink;
+  private gitLink = LINKS.creational.singleton.gitApiLink;
   public wikiLink: string = LINKS.creational.singleton.wikiLink;
   public sampleLink: string = LINKS.creational.singleton.sampleLink;
   public linkName = ELEMENTS.linkToSampleName;

@@ -1,15 +1,21 @@
-export type House = Array<string>;
+export function buildHouse() {
+  const builder = new ConstructionBuilder();
+  const director = new ConstructionDirector(builder);
+  director.construct();
+  const house = builder.house;
+  // console.log('Builder: ', house.showHouse());
+}
 
-export interface Building {
-  concreteHouse: House;
+type House = Array<string>;
 
+interface Building {
   construct(parts: string): void;
 
   showHouse(): void;
 }
 
 class BuildHouse implements Building {
-  concreteHouse: House = [];
+  private concreteHouse: House = [];
 
   construct(part: string): void {
     this.concreteHouse.push(part);
@@ -20,50 +26,47 @@ class BuildHouse implements Building {
   }
 }
 
-export interface Builder {
-  house: BuildHouse;
-
-  buildBaseFloor();
-
-  buildFloors();
-
-  buildRoof();
-
-  getHouse(): BuildHouse;
-}
-
-export class ConstructionBuilder implements Builder {
+abstract class Builder {
   public house: BuildHouse;
 
+  public abstract buildBaseFloor();
+
+  public abstract buildFloors();
+
+  public abstract buildRoof();
+}
+
+class ConstructionBuilder extends Builder {
+  private _house: BuildHouse;
+
   constructor() {
-    this.house = new BuildHouse();
+    super();
+    this._house = new BuildHouse();
   }
 
-  buildBaseFloor() {
-    this.house.construct('base floor ready');
+  public buildBaseFloor() {
+    this._house.construct('base floor ready');
   }
 
-  buildFloors() {
-    this.house.construct('all floors ready');
+  public buildFloors() {
+    this._house.construct('all floors ready');
   }
 
-  buildRoof() {
-    this.house.construct('roof ready');
+  public buildRoof() {
+    this._house.construct('roof ready');
   }
 
-  getHouse(): BuildHouse {
-    return this.house;
+  public get house(): BuildHouse {
+    return this._house;
   }
 }
 
-export interface Director {
-  builder: Builder;
-
+interface Director {
   construct(): void;
 }
 
-export class ConstructionDirector implements Director {
-  public builder: Builder;
+class ConstructionDirector implements Director {
+  private builder: Builder;
 
   constructor(public currentBuilder: Builder) {
     this.builder = currentBuilder;

@@ -1,4 +1,26 @@
-export interface EveryCar {
+export function createProduct(name) {
+  switch (name) {
+    case 'Mustang ':
+      return new MustangFactory().createProduct();
+    case 'Mustang turbo':
+      return new MustangFactory().createProduct(true);
+    case 'Focus':
+      return new FocusFactory().createProduct();
+    default:
+      return 'You should create a relevant Factory';
+  }
+}
+
+export function factoryMethod() {
+  const mustang = createProduct('Mustang');
+  const mustangTurbo = createProduct('Mustang turbo');
+  const focus = createProduct('Focus');
+  // console.log(mustang);
+  // console.log(mustangTurbo);
+  // console.log(focus);
+}
+
+interface EveryCar {
   name: string;
   speedLimit: number;
 
@@ -7,7 +29,7 @@ export interface EveryCar {
   speedUp(speed: number): boolean;
 }
 
-export abstract class Car implements EveryCar {
+abstract class Car implements EveryCar {
   public name: string;
   public speedLimit: number;
 
@@ -44,7 +66,7 @@ class MustangCar extends Car {
   }
 }
 
-export interface ProductFactory {
+interface ProductFactory {
   createProduct(): EveryCar;
 }
 
@@ -58,7 +80,7 @@ export class FocusFactory extends CarFactory implements ProductFactory {
   }
 }
 
-export class MustangFactory extends CarFactory implements ProductFactory {
+class MustangFactory extends CarFactory implements ProductFactory {
   public createProduct(turbo?: boolean): EveryCar {
     return new MustangCar(turbo);
   }

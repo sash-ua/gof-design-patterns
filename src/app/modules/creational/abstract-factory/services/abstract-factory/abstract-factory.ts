@@ -1,13 +1,27 @@
-export type Car = {
+export function abstractFactory() {
+  const fiesta = makeCar({name: 'Fiesta', power: 70});
+  const focus = makeCar({name: 'Focus', power: 80});
+  const mustang = makeCar({name: 'mustang', power: 120});
+  // console.log('AbstractFactory:', fiesta);
+  // console.log('AbstractFactory:', focus);
+  // console.log('AbstractFactory:', mustang);
+}
+
+function makeCar(obj: Car): string {
+  const factory = new FiestaFocusCarFactory();
+  return factory.createCar(obj);
+}
+
+export interface Car {
   name: string;
   power: number;
-};
+}
 
 interface CarFactory {
   createCar(obj: Car): string;
 }
 
-export class FiestaFocusCarFactory implements CarFactory {
+class FiestaFocusCarFactory implements CarFactory {
   constructor() {
   }
 
@@ -15,7 +29,7 @@ export class FiestaFocusCarFactory implements CarFactory {
     const {name, power} = obj;
     const eng = new EngineFactory(power).enginePower();
     const bw = new BodyworkFactory(name).bodyworkType();
-    return bw ? `New car ${name}. ${eng}. ${bw}.` : 'This type of a car can\'t be produced on the factory!' ;
+    return bw ? `New car ${name}. ${eng}. ${bw}.` : 'This type of a car can\'t be produced on the factory!';
   }
 }
 

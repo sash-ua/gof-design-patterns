@@ -1,4 +1,12 @@
-export namespace SunSingleton {
+export function singleton() {
+  const sun1 = SunSingleton.SunInstance;
+  const sun2 = SunSingleton.SunInstance;
+  // console.log('sun1 === sun2', sun1 === sun2);
+  // console.log(sun1.shining());
+  // console.log(sun2.shining());
+}
+
+namespace SunSingleton {
   interface Sun {
     luminosity: number;
 
