@@ -1,12 +1,12 @@
-import {Iterator, KeyIterator, ValIterator} from './iterator/iterator';
+import {Enumerator, KeyIterator, ValIterator} from './iterator';
 
 abstract class Collection {
   public keyVault: Array<any> = [];
   public valueVault: Array<any> = [];
 
-  public abstract createKeyIterator(): Iterator;
+  public abstract createKeyIterator(): Enumerator;
 
-  public abstract createValIterator(): Iterator;
+  public abstract createValIterator(): Enumerator;
 }
 
 export class Map extends Collection {
