@@ -15,21 +15,22 @@ export function iterator() {
   // map.delete('first');
   // console.log('map', map); // 2
 
-  // const keyIterator = map.createKeyIterator();
-  // for (let i = keyIterator.first(); !keyIterator.isDone(); i = keyIterator.next()) {
-  //   console.log(i);
-  // }
-  // const valIterator = map.createValIterator();
-  // for (let i = valIterator.first(); !valIterator.isDone(); i = valIterator.next()) {
-  //   console.log(i);
-  // }
+  const keyIterator = map.createKeyIterator();
+  for (let i = keyIterator.first(); !keyIterator.isDone(); i = keyIterator.next()) {
+    console.log(i);
+  }
+  const valIterator = map.createValIterator();
+  for (let i = valIterator.first(); !valIterator.isDone(); i = valIterator.next()) {
+    console.log(i);
+  }
 }
 
 abstract class Collection {
   public keyVault: Array<any> = [];
   public valueVault: Array<any> = [];
 
-  public abstract createKeyIterator(): KeyIterator;
+  public abstract createKeyIterator(): Iterator;
+  public abstract createValIterator(): Iterator;
 }
 
 export class Map extends Collection {
