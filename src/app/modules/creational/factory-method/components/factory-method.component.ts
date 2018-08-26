@@ -4,6 +4,7 @@ import {LINKS} from '../../../../LINKS';
 import {ELEMENTS} from '../../../../elements';
 import {map} from 'rxjs/operators';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -12,19 +13,21 @@ import {Observable} from 'rxjs';
   styleUrls: ['./factory-method.component.css']
 })
 export class FactoryMethodComponent {
-  private gitLink = LINKS.creational.factoryMethod.gitApiLink;
-  public wikiLink: string = LINKS.creational.factoryMethod.wikiLink;
-  public sampleLink: string = LINKS.creational.factoryMethod.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.creational.factoryMethod.gitApiLink,
+    wikiLink: LINKS.creational.factoryMethod.wikiLink,
+    sampleLink: LINKS.creational.factoryMethod.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private factoryMethod: FactoryMethodService, private http: GetGitContentService) {
     this.factoryMethod.factoryMethod();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

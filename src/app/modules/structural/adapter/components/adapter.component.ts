@@ -5,6 +5,7 @@ import {AdapterService} from '../services/adapter.service';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-adapter',
@@ -12,20 +13,21 @@ import {Observable} from 'rxjs';
   styleUrls: ['./adapter.component.css']
 })
 export class AdapterComponent {
-  private gitLink = LINKS.structural.adapter.gitApiLink;
-  public wikiLink: string = LINKS.structural.adapter.wikiLink;
-  public sampleLink: string = LINKS.structural.adapter.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.structural.adapter.gitApiLink,
+    wikiLink: LINKS.structural.adapter.wikiLink,
+    sampleLink: LINKS.structural.adapter.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private  adapter: AdapterService, private http: GetGitContentService) {
-    this.adapter.adpterObjLvl();
-    this.adapter.adapterClassLvl();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    this.adapter.adapter();
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

@@ -5,6 +5,7 @@ import {BridgeService} from '../services/bridge.service';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-bridge',
@@ -12,19 +13,21 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
   styleUrls: ['./bridge.component.css']
 })
 export class BridgeComponent {
-  private gitLink = LINKS.structural.bridge.gitApiLink;
-  public wikiLink: string = LINKS.structural.bridge.wikiLink;
-  public sampleLink: string = LINKS.structural.bridge.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.structural.bridge.gitApiLink,
+    wikiLink: LINKS.structural.bridge.wikiLink,
+    sampleLink: LINKS.structural.bridge.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private bridge: BridgeService, private http: GetGitContentService) {
     bridge.bridge();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

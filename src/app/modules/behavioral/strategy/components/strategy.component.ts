@@ -5,6 +5,7 @@ import {StrategyService} from '../services/strategy.service';
 import {Observable} from 'rxjs';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {map} from 'rxjs/operators';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-strategy',
@@ -12,19 +13,21 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./strategy.component.css']
 })
 export class StrategyComponent {
-  private gitLink = LINKS.behavioral.strategy.gitApiLink;
-  public wikiLink: string = LINKS.behavioral.strategy.wikiLink;
-  public sampleLink: string = LINKS.behavioral.strategy.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.behavioral.strategy.gitApiLink,
+    wikiLink: LINKS.behavioral.strategy.wikiLink,
+    sampleLink: LINKS.behavioral.strategy.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private  strategy: StrategyService, private http: GetGitContentService) {
     this.strategy.strategy();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

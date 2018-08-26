@@ -5,6 +5,7 @@ import {DecoratorService} from '../services/decorator.service';
 import {Observable} from 'rxjs';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {map} from 'rxjs/operators';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-decorator',
@@ -12,19 +13,21 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./decorator.component.css']
 })
 export class DecoratorComponent {
-  private gitLink = LINKS.structural.decorator.gitApiLink;
-  public wikiLink: string = LINKS.structural.decorator.wikiLink;
-  public sampleLink: string = LINKS.structural.decorator.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.structural.decorator.gitApiLink,
+    wikiLink: LINKS.structural.decorator.wikiLink,
+    sampleLink: LINKS.structural.decorator.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private decorator: DecoratorService, private http: GetGitContentService) {
     this.decorator.decorator();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

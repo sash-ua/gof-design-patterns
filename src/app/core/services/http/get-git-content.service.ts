@@ -35,8 +35,8 @@ export class GetGitContentService {
   public getData(url: string): Observable<HttpResponse<GitContentResponse>> {
     return this.http.get<any>(url)
       .pipe(
-      retry(3),
-      catchError(this.hE.handleError(this.serviceName))
-    );
+        retry(3),
+        catchError(this.hE.handleError(this.serviceName))
+      );
   }
 }

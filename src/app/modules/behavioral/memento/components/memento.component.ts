@@ -5,6 +5,7 @@ import {MementoService} from '../services/memento.service';
 import {Observable} from 'rxjs';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {map} from 'rxjs/operators';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-memento',
@@ -12,19 +13,21 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./memento.component.css']
 })
 export class MementoComponent {
-  private gitLink = LINKS.behavioral.memento.gitApiLink;
-  public wikiLink: string = LINKS.behavioral.memento.wikiLink;
-  public sampleLink: string = LINKS.behavioral.memento.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.behavioral.memento.gitApiLink,
+    wikiLink: LINKS.behavioral.memento.wikiLink,
+    sampleLink: LINKS.behavioral.memento.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private memento: MementoService, private http: GetGitContentService) {
     this.memento.memento();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

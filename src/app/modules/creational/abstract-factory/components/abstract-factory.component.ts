@@ -3,8 +3,9 @@ import {AbstractFactoryService} from '../services/abstract-factory.service';
 import {LINKS} from '../../../../LINKS';
 import {ELEMENTS} from '../../../../elements';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
-import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-abstract-factory',
@@ -12,19 +13,21 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./abstract-factory.component.css']
 })
 export class AbstractFactoryComponent {
-  private gitLink = LINKS.creational.abstractFactory.gitApiLink;
-  public wikiLink: string = LINKS.creational.abstractFactory.wikiLink;
-  public sampleLink: string = LINKS.creational.abstractFactory.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.creational.abstractFactory.gitApiLink,
+    wikiLink: LINKS.creational.abstractFactory.wikiLink,
+    sampleLink: LINKS.creational.abstractFactory.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(public car: AbstractFactoryService, private http: GetGitContentService) {
     this.car.abstractFactory();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

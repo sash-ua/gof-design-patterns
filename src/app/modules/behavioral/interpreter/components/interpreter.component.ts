@@ -5,6 +5,7 @@ import {InterpreterService} from '../services/interpreter.service';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-interpreter',
@@ -12,19 +13,21 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
   styleUrls: ['./interpreter.component.css']
 })
 export class InterpreterComponent {
-  private gitLink = LINKS.behavioral.interpreter.gitApiLink;
-  public wikiLink: string = LINKS.behavioral.interpreter.wikiLink;
-  public sampleLink: string = LINKS.behavioral.interpreter.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.behavioral.interpreter.gitApiLink,
+    wikiLink: LINKS.behavioral.interpreter.wikiLink,
+    sampleLink: LINKS.behavioral.interpreter.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private  i: InterpreterService, private http: GetGitContentService) {
     this.i.interpreter();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

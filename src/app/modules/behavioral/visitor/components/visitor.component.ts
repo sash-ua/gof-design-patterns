@@ -5,6 +5,7 @@ import {VisitorService} from '../services/visitor.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-visitor',
@@ -12,19 +13,21 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
   styleUrls: ['./visitor.component.css']
 })
 export class VisitorComponent {
-  private gitLink = LINKS.behavioral.visitor.gitApiLink;
-  public wikiLink: string = LINKS.behavioral.visitor.wikiLink;
-  public sampleLink: string = LINKS.behavioral.visitor.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.behavioral.visitor.gitApiLink,
+    wikiLink: LINKS.behavioral.visitor.wikiLink,
+    sampleLink: LINKS.behavioral.visitor.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private visitor: VisitorService, private http: GetGitContentService) {
     this.visitor.visitior();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

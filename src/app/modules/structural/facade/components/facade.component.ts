@@ -5,6 +5,7 @@ import {FacadeService} from '../services/facade.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-facade',
@@ -12,19 +13,21 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
   styleUrls: ['./facade.component.css']
 })
 export class FacadeComponent {
-  private gitLink = LINKS.structural.facade.gitApiLink;
-  public wikiLink: string = LINKS.structural.facade.wikiLink;
-  public sampleLink: string = LINKS.structural.facade.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.structural.facade.gitApiLink,
+    wikiLink: LINKS.structural.facade.wikiLink,
+    sampleLink: LINKS.structural.facade.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private  f: FacadeService, private http: GetGitContentService) {
     f.facade();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

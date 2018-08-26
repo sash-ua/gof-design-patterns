@@ -5,6 +5,7 @@ import {CompositeService} from '../services/composite.service';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-composite',
@@ -12,19 +13,21 @@ import {Observable} from 'rxjs';
   styleUrls: ['./composite.component.css']
 })
 export class CompositeComponent {
-  private gitLink = LINKS.structural.composite.gitApiLink;
-  public wikiLink: string = LINKS.structural.composite.wikiLink;
-  public sampleLink: string = LINKS.structural.composite.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.structural.composite.gitApiLink,
+    wikiLink: LINKS.structural.composite.wikiLink,
+    sampleLink: LINKS.structural.composite.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private comp: CompositeService, private http: GetGitContentService) {
     this.comp.composite();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

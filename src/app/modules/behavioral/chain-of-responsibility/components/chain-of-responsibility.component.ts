@@ -5,6 +5,7 @@ import {ChainOfResponsibilityService} from '../services/chain-of-responsibility.
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-chain-of-responsibility',
@@ -12,19 +13,21 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./chain-of-responsibility.component.css']
 })
 export class ChainOfResponsibilityComponent {
-  private gitLink = LINKS.behavioral.chainOfResponsibility.gitApiLink;
-  public wikiLink: string = LINKS.behavioral.chainOfResponsibility.wikiLink;
-  public sampleLink: string = LINKS.behavioral.chainOfResponsibility.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.behavioral.chainOfResponsibility.gitApiLink,
+    wikiLink: LINKS.behavioral.chainOfResponsibility.wikiLink,
+    sampleLink: LINKS.behavioral.chainOfResponsibility.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private cOfR: ChainOfResponsibilityService, private http: GetGitContentService) {
     this.cOfR.chainOfResponsibility();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

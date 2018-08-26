@@ -2,9 +2,10 @@ import {Component} from '@angular/core';
 import {BuilderService} from '../services/builder.service';
 import {LINKS} from '../../../../LINKS';
 import {ELEMENTS} from '../../../../elements';
-import {Observable} from 'rxjs';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-builder',
@@ -12,19 +13,21 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./builder.component.css']
 })
 export class BuilderComponent {
-  private gitLink = LINKS.creational.builder.gitApiLink;
-  public wikiLink: string = LINKS.creational.builder.wikiLink;
-  public sampleLink: string = LINKS.creational.builder.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.creational.builder.gitApiLink,
+    wikiLink: LINKS.creational.builder.wikiLink,
+    sampleLink: LINKS.creational.builder.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private builder: BuilderService, private http: GetGitContentService) {
     this.builder.buildHouse();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }

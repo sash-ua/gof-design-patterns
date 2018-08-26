@@ -5,6 +5,7 @@ import {CalculatorService} from '../services/calculator.service';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
+import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 
 @Component({
   selector: 'app-command',
@@ -12,20 +13,21 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
   styleUrls: ['./command.component.css']
 })
 export class CommandComponent {
-  private gitLink = LINKS.behavioral.command.gitApiLink;
-  public wikiLink: string = LINKS.behavioral.command.wikiLink;
-  public sampleLink: string = LINKS.behavioral.command.sampleLink;
-  public linkName = ELEMENTS.linkToSampleName;
-  public sample = ELEMENTS.sampleTitle;
-  public content$: Observable<any>;
+  public patternCompData: PatternConfig = {
+    gitLink: LINKS.behavioral.command.gitApiLink,
+    wikiLink: LINKS.behavioral.command.wikiLink,
+    sampleLink: LINKS.behavioral.command.sampleLink,
+    linkName: ELEMENTS.linkToSampleName,
+    sample: ELEMENTS.sampleTitle
+  };
 
   constructor(private calc: CalculatorService, private http: GetGitContentService) {
     this.calc.calculator();
-    this.content$ = this.http.getData(this.gitLink).pipe(
+    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
-        console.log('resp', resp);
         return resp ? atob(resp.content) : null;
       })
     );
+    this.patternCompData = Object.assign(this.patternCompData, {content$});
   }
 }
