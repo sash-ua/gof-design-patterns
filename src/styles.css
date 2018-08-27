@@ -1,10 +1,12 @@
-iframe {
-  width: 90%;
-  height: 350px;
-  margin-left: 50%;
-  transform: translate(-50%);
+iframe, .git-content-container {
+  overflow-x: auto;
+  width: 85%;
+  margin-left: -50%;  /* centering */
+  transform: translate(66.5%);
 }
-
+iframe{
+  height: 350px;
+}
 nav {
   position: relative;
   height: auto;
@@ -92,9 +94,13 @@ nav .active-link {
 
   .nav-patterns {
     border-radius: 5px 5px 5px 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     display: block;
+    margin-top: 20px;
     width: 0;
-    padding: 40px 0 0 0;
+    padding: 0;
     position: absolute;
     overflow: hidden;
     transition: width 0.5s ease-in-out;
@@ -102,6 +108,7 @@ nav .active-link {
 
   .nav-secondary {
     cursor: pointer;
+    z-index: 1;
   }
 
   .nav-secondary:hover .nav-patterns {
