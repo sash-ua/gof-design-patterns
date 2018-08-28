@@ -1,8 +1,8 @@
 import {Routes} from '@angular/router';
-import {CreationalComponent} from './creational/creational.component';
-import {BehavioralComponent} from './behavioral/behavioral.component';
-import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {StructuralComponent} from './structural/structural.component';
+import {CreationalComponent} from './core/components/creational/creational.component';
+import {BehavioralComponent} from './core/components/behavioral/behavioral.component';
+import {PageNotFoundComponent} from './core/components/page-not-found/page-not-found.component';
+import {StructuralComponent} from './core/components/structural/structural.component';
 
 const CREATIONAL_CHILDREN_ROUTES = [
   {path: '', redirectTo: 'factory-method', pathMatch: 'full'},
