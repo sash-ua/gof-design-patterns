@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {Observable} from 'rxjs';
+import {InterpreterService} from '../../../behavioral/interpreter/services/interpreter.service';
 
 @Component({
   selector: 'app-factory-method',
@@ -21,11 +22,11 @@ export class FactoryMethodComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private factoryMethod: FactoryMethodService, private http: GetGitContentService) {
+  constructor(private factoryMethod: FactoryMethodService, private http: GetGitContentService, private interpreter: InterpreterService) {
     this.factoryMethod.factoryMethod();
     const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
-        return resp ? atob(resp.content) : null;
+        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
       })
     );
     this.patternCompData = Object.assign(this.patternCompData, {content$});

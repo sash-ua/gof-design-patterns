@@ -74,7 +74,7 @@ class ControllerInvoker {
   }
 
   cashedResult(id: number) {
-    return this.stack.has(id) ? this.stack.get(id).result : 'No result by the ID';
+    return this.stack.has(id) ? this.stack.get(id).result : 'No check by the ID';
   }
 
   public before() {

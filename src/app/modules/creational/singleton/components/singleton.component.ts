@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {Observable} from 'rxjs';
+import {InterpreterService} from '../../../behavioral/interpreter/services/interpreter.service';
 
 @Component({
   selector: 'app-singleton',
@@ -21,11 +22,11 @@ export class SingletonComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private singleton: SingletonService, private http: GetGitContentService) {
+  constructor(private singleton: SingletonService, private http: GetGitContentService, private interpreter: InterpreterService) {
     this.singleton.singleton();
     const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
-        return resp ? atob(resp.content) : null;
+        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
       })
     );
     this.patternCompData = Object.assign(this.patternCompData, {content$});

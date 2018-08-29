@@ -1,6 +1,6 @@
 <app-embedded-container [queryString]="patternCompData.wikiLink"></app-embedded-container>
 <h3>{{patternCompData.sample}}</h3>
 <div class="git-content-container">
-  <pre class="github-content">{{patternCompData.content$ | async}}</pre>
+  <div  [innerHTML]="patternCompData.content$ | async | safeHtml"></div>
 </div>
 <h3><a [href]="patternCompData.sampleLink" rel="noopener" target="_blank">{{patternCompData.linkName}}</a></h3>

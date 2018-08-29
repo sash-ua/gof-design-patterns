@@ -21,11 +21,10 @@ export class InterpreterComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private  i: InterpreterService, private http: GetGitContentService) {
-    this.i.interpreter();
+  constructor(private interpreter: InterpreterService, private http: GetGitContentService) {
     const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
-        return resp ? atob(resp.content) : null;
+        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
       })
     );
     this.patternCompData = Object.assign(this.patternCompData, {content$});

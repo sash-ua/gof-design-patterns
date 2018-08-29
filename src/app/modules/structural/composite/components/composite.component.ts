@@ -6,6 +6,7 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
+import {InterpreterService} from '../../../behavioral/interpreter/services/interpreter.service';
 
 @Component({
   selector: 'app-composite',
@@ -21,11 +22,11 @@ export class CompositeComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private comp: CompositeService, private http: GetGitContentService) {
+  constructor(private comp: CompositeService, private http: GetGitContentService, private interpreter: InterpreterService) {
     this.comp.composite();
     const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
-        return resp ? atob(resp.content) : null;
+        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
       })
     );
     this.patternCompData = Object.assign(this.patternCompData, {content$});

@@ -6,6 +6,7 @@ import {GetGitContentService} from '../../../../core/services/http/get-git-conte
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
+import {InterpreterService} from '../../../behavioral/interpreter/services/interpreter.service';
 
 @Component({
   selector: 'app-builder',
@@ -21,11 +22,11 @@ export class BuilderComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private builder: BuilderService, private http: GetGitContentService) {
+  constructor(private builder: BuilderService, private http: GetGitContentService, private interpreter: InterpreterService) {
     this.builder.buildHouse();
     const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
-        return resp ? atob(resp.content) : null;
+        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
       })
     );
     this.patternCompData = Object.assign(this.patternCompData, {content$});

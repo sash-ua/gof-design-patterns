@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {interpreter} from './interpreter/interpreter';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class InterpreterService {
   constructor() {
   }
 
-  interpreter() {
-
+  interpreter(v: any): any {
+    return interpreter(v);
   }
 }

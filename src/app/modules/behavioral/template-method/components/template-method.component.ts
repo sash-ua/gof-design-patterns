@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {map} from 'rxjs/operators';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
+import {InterpreterService} from '../../interpreter/services/interpreter.service';
 
 @Component({
   selector: 'app-template-method',
@@ -21,11 +22,11 @@ export class TemplateMethodComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private  tm: TemplateMethodService, private http: GetGitContentService) {
+  constructor(private  tm: TemplateMethodService, private http: GetGitContentService, private interpreter: InterpreterService) {
     this.tm.templateMethod();
     const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
-        return resp ? atob(resp.content) : null;
+        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
       })
     );
     this.patternCompData = Object.assign(this.patternCompData, {content$});

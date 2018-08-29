@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
+import {InterpreterService} from '../../../behavioral/interpreter/services/interpreter.service';
 
 @Component({
   selector: 'app-bridge',
@@ -21,11 +22,11 @@ export class BridgeComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private bridge: BridgeService, private http: GetGitContentService) {
+  constructor(private bridge: BridgeService, private http: GetGitContentService, private interpreter: InterpreterService) {
     bridge.bridge();
     const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
       map((resp: any) => {
-        return resp ? atob(resp.content) : null;
+        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
       })
     );
     this.patternCompData = Object.assign(this.patternCompData, {content$});
