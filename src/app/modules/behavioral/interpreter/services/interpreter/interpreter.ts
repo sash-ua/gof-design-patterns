@@ -88,7 +88,7 @@ class LineDivider extends Expression {
 
 class Highlighter extends Expression {
   protected highlighter: Expression;
-  protected CheckVocabulary: Expression;
+  protected checkVocabulary: Expression;
 
   public interpret(c: Context): void {
     if (c.position < c.source.length) {
@@ -98,8 +98,8 @@ class Highlighter extends Expression {
         c.buffer = v;
         const f = v.trim().length;
         if (v.length && f >= 0) {
-          this.CheckVocabulary = new CheckVocabulary();
-          this.CheckVocabulary.interpret(c);
+          this.checkVocabulary = new CheckVocabulary();
+          this.checkVocabulary.interpret(c);
           if (c.check) {
             c.result.push(c.vocabulary.get(c.buffer));
           } else if (f === 0) {
