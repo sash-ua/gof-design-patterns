@@ -36,10 +36,11 @@ abstract class Car implements EveryCar {
   public start(): boolean {
     return true;
   }
+
   abstract speedUp(speed: number): boolean;
 }
 
-class FocusCar extends Car implements EveryCar {
+class FocusCar extends Car {
   public name = 'Fiesta';
   public speedLimit = 200;
 
@@ -74,13 +75,13 @@ abstract class CarFactory implements ProductFactory {
   abstract createProduct(): EveryCar;
 }
 
-export class FocusFactory extends CarFactory implements ProductFactory {
+export class FocusFactory extends CarFactory {
   public createProduct(): EveryCar {
     return new FocusCar();
   }
 }
 
-class MustangFactory extends CarFactory implements ProductFactory {
+class MustangFactory extends CarFactory {
   public createProduct(turbo?: boolean): EveryCar {
     return new MustangCar(turbo);
   }
