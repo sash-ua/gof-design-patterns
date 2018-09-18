@@ -40,3 +40,9 @@ export const highLightVocabulary: any = [
   ['{', '<span style="color: #059c00">{</span>'],
   ['}', '<span style="color: #059c00">}</span>'],
 ];
+export const comboVocabulary: any = [
+  ['class', '#9a0b9c'],
+  ['extends', '#9a0b9c'],
+  ['new', '#9a0b9c'],
+  ['implements', '#9a0b9c'],
+];

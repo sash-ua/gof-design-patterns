@@ -320,9 +320,10 @@ function interpreter(d) {
     if (d === void 0) { d = 'function'; }
     var context = new Context();
     context.vocabulary = new Map(_vocabulary__WEBPACK_IMPORTED_MODULE_0__["highLightVocabulary"]);
-    context.source = d.split(/(?=(\s+))\n+/g);
-    var lD = new LineDivider();
-    lD.interpret(context);
+    context.comboVocabulary = new Map(_vocabulary__WEBPACK_IMPORTED_MODULE_0__["comboVocabulary"]);
+    context.buffer = d;
+    var rd = new RowDivider();
+    rd.interpret(context);
     return context.result.join(' ');
 }
 var Context = /** @class */ (function () {
@@ -332,10 +333,10 @@ var Context = /** @class */ (function () {
     }
     Object.defineProperty(Context.prototype, "buffer", {
         get: function () {
-            return this._buffer;
+            return this._unsafeBuffer;
         },
         set: function (d) {
-            this._buffer = d;
+            this._unsafeBuffer = d;
         },
         enumerable: true,
         configurable: true
@@ -353,6 +354,16 @@ var Context = /** @class */ (function () {
         },
         set: function (d) {
             this._vocabulary = d;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Context.prototype, "comboVocabulary", {
+        get: function () {
+            return this._comboVocabulary;
+        },
+        set: function (d) {
+            this._comboVocabulary = d;
         },
         enumerable: true,
         configurable: true
@@ -377,6 +388,16 @@ var Context = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Context.prototype, "combo", {
+        get: function () {
+            return this._combo;
+        },
+        set: function (d) {
+            this._combo = d;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Context.prototype, "position", {
         get: function () {
             return this._position;
@@ -394,6 +415,18 @@ var Expression = /** @class */ (function () {
     }
     return Expression;
 }());
+var StartCombinations = /** @class */ (function (_super) {
+    __extends(StartCombinations, _super);
+    function StartCombinations() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    StartCombinations.prototype.interpret = function (context) {
+        if (context.comboVocabulary.has(context.buffer) && context.check) {
+            context.combo = context.buffer;
+        }
+    };
+    return StartCombinations;
+}(Expression));
 var CheckVocabulary = /** @class */ (function (_super) {
     __extends(CheckVocabulary, _super);
     function CheckVocabulary() {
@@ -404,19 +437,32 @@ var CheckVocabulary = /** @class */ (function (_super) {
     };
     return CheckVocabulary;
 }(Expression));
-var LineDivider = /** @class */ (function (_super) {
-    __extends(LineDivider, _super);
-    function LineDivider() {
+var RowDivider = /** @class */ (function (_super) {
+    __extends(RowDivider, _super);
+    function RowDivider() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.wd = new WordDivider();
+        return _this;
+    }
+    RowDivider.prototype.interpret = function (c) {
+        c.source = c.buffer.split(/(?=(\s+))\n+/g);
+        this.wd.interpret(c);
+    };
+    return RowDivider;
+}(Expression));
+var WordDivider = /** @class */ (function (_super) {
+    __extends(WordDivider, _super);
+    function WordDivider() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    LineDivider.prototype.interpret = function (c) {
+    WordDivider.prototype.interpret = function (c) {
         c.source = c.source.map(function (v) {
             return v.charCodeAt(0) !== 10 ? v : '';
         });
         this.highlight = new Highlighter();
         this.highlight.interpret(c);
     };
-    return LineDivider;
+    return WordDivider;
 }(Expression));
 var Highlighter = /** @class */ (function (_super) {
     __extends(Highlighter, _super);
@@ -431,17 +477,25 @@ var Highlighter = /** @class */ (function (_super) {
             c.source[c.position].forEach(function (v) {
                 c.buffer = v;
                 var f = v.trim().length;
-                if (v.length && f >= 0) {
-                    _this.checkVocabulary = new CheckVocabulary();
-                    _this.checkVocabulary.interpret(c);
-                    if (c.check) {
-                        c.result.push(c.vocabulary.get(c.buffer));
+                if (f >= 0) {
+                    if (f > 0) {
+                        _this.checkVocabulary = new CheckVocabulary();
+                        _this.checkVocabulary.interpret(c);
+                        _this.combo = new StartCombinations();
+                        _this.combo.interpret(c);
+                        if (c.check) {
+                            c.result.push(c.vocabulary.get(c.buffer));
+                        }
+                        else if (c.combo) {
+                            c.result.push("<span style=\"color: " + c.comboVocabulary.get(c.combo) + "\">" + c.buffer + "</span>");
+                            c.combo = null;
+                        }
+                        else {
+                            c.result.push(c.buffer);
+                        }
                     }
                     else if (f === 0) {
                         c.result.push(new Array(c.buffer.length).fill(space).join(''));
-                    }
-                    else {
-                        c.result.push(c.buffer);
                     }
                 }
             });
@@ -461,12 +515,13 @@ var Highlighter = /** @class */ (function (_super) {
 /*!***********************************************************************************!*\
   !*** ./src/app/modules/behavioral/interpreter/services/interpreter/vocabulary.ts ***!
   \***********************************************************************************/
-/*! exports provided: highLightVocabulary */
+/*! exports provided: highLightVocabulary, comboVocabulary */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "highLightVocabulary", function() { return highLightVocabulary; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "comboVocabulary", function() { return comboVocabulary; });
 var highLightVocabulary = [
     ['namespace', '<span style="color: #d73a49">namespace</span>'],
     ['interface', '<span style="color: #d73a49">interface</span>'],
@@ -507,6 +562,12 @@ var highLightVocabulary = [
     ['never', '<span style="color: #059c00">never</span>'],
     ['{', '<span style="color: #059c00">{</span>'],
     ['}', '<span style="color: #059c00">}</span>'],
+];
+var comboVocabulary = [
+    ['class', '#9a0b9c'],
+    ['extends', '#9a0b9c'],
+    ['new', '#9a0b9c'],
+    ['implements', '#9a0b9c'],
 ];
 
 
