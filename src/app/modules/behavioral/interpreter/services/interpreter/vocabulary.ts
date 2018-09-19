@@ -23,6 +23,7 @@ export const highLightVocabulary: any = [
   ['Object', '<span style="color: #002ed7">Object</span>'],
   ['super', '<span style="color: #002ed7">super</span>'],
   ['import', '<span style="color: #002ed7">import</span>'],
+  ['from', '<span style="color: #002ed7">from</span>'],
   ['switch', '<span style="color: #002ed7">switch</span>'],
   ['case', '<span style="color: #002ed7">case</span>'],
   ['default', '<span style="color: #002ed7">default</span>'],
@@ -39,10 +40,16 @@ export const highLightVocabulary: any = [
   ['never', '<span style="color: #059c00">never</span>'],
   ['{', '<span style="color: #059c00">{</span>'],
   ['}', '<span style="color: #059c00">}</span>'],
+  ['set', '<span style="color: #9a0b9c">set</span>'],
+  ['get', '<span style="color: #9a0b9c">get</span>'],
+  [':', '<span style="color: #000000">:</span>'],
 ];
 export const comboVocabulary: any = [
   ['class', '#9a0b9c'],
   ['extends', '#9a0b9c'],
   ['new', '#9a0b9c'],
   ['implements', '#9a0b9c'],
+  ['function', '#9a0b9c'],
+  ['interface', '#9a0b9c'],
+  [':', '#059c00'],
 ];
