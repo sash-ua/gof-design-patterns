@@ -3,7 +3,7 @@ export namespace AdapterObjectLvl {
     // console.log(new Adapter().request({body: 'go'}));
   }
 
-  interface Answer {
+  export interface Answer {
     body: string;
   }
 
@@ -14,9 +14,10 @@ export namespace AdapterObjectLvl {
   class Adapter<T> extends TargetInterface<T> {
     private adaptee = new RequestAPI();
 
-    request(obj: T): Answer {
+    request(obj: T): AdapterObjectLvl.Answer {
       return JSON.parse(this.adaptee.xRequest(obj));
     }
+
   }
 
   class RequestAPI<T> {
@@ -31,7 +32,7 @@ export namespace AdapterClassLvl {
     // console.log(new Adapter().request({body: 'go'}));
   }
 
-  interface Answer {
+  export interface Answer {
     body: string;
   }
 
@@ -50,7 +51,7 @@ export namespace AdapterClassLvl {
       super();
     }
 
-    request(obj: T): Answer {
+    request(obj: T): AdapterClassLvl.Answer {
       return JSON.parse(this.xRequest(obj));
     }
   }
