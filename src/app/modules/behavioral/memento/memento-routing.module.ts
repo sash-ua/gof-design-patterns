@@ -1,7 +1,6 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import {} from './components/abstract-factory.component';
 import {MementoComponent} from './components/memento.component';
+import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from '@angular/core';
 
 const routes: Routes = [
   {path: '', component: MementoComponent}

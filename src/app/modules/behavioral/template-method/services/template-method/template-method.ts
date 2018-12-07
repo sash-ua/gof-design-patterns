@@ -1,8 +1,8 @@
 export function templateMethod() {
   const a = new GasAnalyzer();
-  // a.analyzer();
+  // a.row();
   const b = new WaterAnalyzer();
-  // b.analyzer();
+  // b.row();
 }
 
 abstract class Analizator {

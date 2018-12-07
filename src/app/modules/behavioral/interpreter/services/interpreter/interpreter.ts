@@ -1,13 +1,13 @@
 import {comboVocabulary, highLightVocabulary, Vocabulary} from './vocabulary';
 
-const space = '&nbsp;';
+const SPACE = '&nbsp;';
 
-export function interpreter(d: string = 'function'): any {
+export function interpreter(d: string): any {
   const context = new Context();
   context.vocabulary = new Map(highLightVocabulary);
   context.comboVocabulary = new Map(comboVocabulary);
   context.buffer = d;
-  const rd = new RowDivider();
+  const rd = new Interpreter();
   rd.interpret(context);
   return context.result.join(' ');
 }
@@ -19,7 +19,7 @@ class Context {
   private _comboVocabulary: Vocabulary;
   private _source: Array<any>;
   private _check: boolean;
-  private _combo: string;
+  private _comboInitiator: string;
   private _position = 0;
 
   public set buffer(d: string) {
@@ -66,12 +66,12 @@ class Context {
     return this._check;
   }
 
-  public set combo(d: string) {
-    this._combo = d;
+  public set comboInitiator(d: string) {
+    this._comboInitiator = d;
   }
 
-  public get combo(): string {
-    return this._combo;
+  public get comboInitiator(): string {
+    return this._comboInitiator;
   }
 
   public set position(d: number) {
@@ -87,76 +87,62 @@ abstract class Expression {
   public abstract interpret(context: Context): void;
 }
 
-class StartCombinations extends Expression {
-  interpret(context: Context) {
+class CheckVocabulary extends Expression {
+  public interpret(context: Context): void {
+    context.check = context.vocabulary.has(context.buffer);
     if (context.comboVocabulary.has(context.buffer) && context.check) {
-      context.combo = context.buffer;
+      context.comboInitiator = context.buffer;
     }
   }
 }
 
-class CheckVocabulary extends Expression {
-  public interpret(context: Context): void {
-    context.check = context.vocabulary.has(context.buffer);
-  }
-}
-
-class RowDivider extends Expression {
-  private wd = new WordDivider();
-
+class Interpreter extends Expression {
   public interpret(c: Context) {
-    c.source = c.buffer.split(/(?=(\s+))\n+/g);
-    this.wd.interpret(c);
+    new RowCutter().interpret(c);
+    new HtmlBuilder().interpret(c);
   }
 }
 
-class WordDivider extends Expression {
-  private highlight: Highlighter;
-
-  public interpret(c: Context): void {
-    c.source = c.source.map(v => {
-      return v.charCodeAt(0) !== 10 ? v : '';
-    });
-    this.highlight = new Highlighter();
-    this.highlight.interpret(c);
+class RowCutter extends Expression {
+  public interpret(context: Context): void {
+    context.source = context.buffer
+      .split(/(?=(\s+))\n+/g)
+      .map(v => v.charCodeAt(0) !== 10 ? v : '');
   }
 }
 
-class Highlighter extends Expression {
-  protected highlighter: Expression;
-  protected checkVocabulary: Expression;
-  protected combo: Expression;
-
+class HtmlBuilder extends Expression {
   public interpret(c: Context): void {
     if (c.position < c.source.length) {
       c.source[c.position] = c.source[c.position].split(/(?=(\W))\W/g);
       c.result.push('<div>');
-      c.source[c.position].forEach((v) => {
-        c.buffer = v;
-        const f = v.trim().length;
-        if (f >= 0) {
-          if (f > 0) {
-            this.checkVocabulary = new CheckVocabulary();
-            this.checkVocabulary.interpret(c);
-            this.combo = new StartCombinations();
-            this.combo.interpret(c);
-            if (c.check) {
-              c.result.push(c.vocabulary.get(c.buffer));
-            } else if (c.combo) {
-              c.result.push(`<span style="color: ${c.comboVocabulary.get(c.combo)}">${c.buffer}</span>`);
-              c.combo = null;
-            } else {
-              c.result.push(c.buffer);
-            }
-          } else if (f === 0) {
-            c.result.push(new Array(c.buffer.length).fill(space).join(''));
-          }
-        }
-      });
+      new Shaper().interpret(c);
       c.result.push('</div>');
       c.position++;
-      this.highlighter = new Highlighter();
-      this.highlighter.interpret(c);
+      new HtmlBuilder().interpret(c);
     }
+  }
+}
+
+class Shaper extends Expression {
+  public interpret(c: Context): void {
+    c.source[c.position].forEach((v) => {
+      c.buffer = v;
+      const f = v.trim().length;
+      if (f > 0) {
+        new CheckVocabulary().interpret(c);
+        if (c.comboInitiator && !c.check) {
+          c.result.push(`<span style="color: ${c.comboVocabulary.get(c.comboInitiator)}">${c.buffer}</span>`);
+          c.comboInitiator = null;
+        } else if (c.check ) {
+          c.result.push(c.vocabulary.get(c.buffer));
+          c.comboInitiator = null;
+        } else {
+          c.result.push(c.buffer);
+        }
+      } else if (f === 0) {
+        c.result.push(new Array(c.buffer.length).fill(SPACE).join(''));
+      }
+    });
   }
 }
