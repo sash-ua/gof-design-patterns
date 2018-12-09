@@ -90,8 +90,10 @@ abstract class Expression {
 class CheckVocabulary extends Expression {
   public interpret(context: Context): void {
     context.check = context.vocabulary.has(context.buffer);
-    if (context.comboVocabulary.has(context.buffer) && context.check) {
+    if (context.comboVocabulary.has(context.buffer) && context.check && !context.comboInitiator) {
       context.comboInitiator = context.buffer;
+    } else if (context.check && context.comboInitiator){
+      context.comboInitiator = null;
     }
   }
 }
@@ -131,11 +133,10 @@ class Shaper extends Expression {
       const f = v.trim().length;
       if (f > 0) {
         new CheckVocabulary().interpret(c);
-        if (c.comboInitiator && !c.check) {
-          c.result.push(`<span style="color: ${c.comboVocabulary.get(c.comboInitiator)}">${c.buffer}</span>`);
-          c.comboInitiator = null;
-        } else if (c.check ) {
+        if (c.check ) {
           c.result.push(c.vocabulary.get(c.buffer));
+        } else if (c.comboInitiator && !c.check) {
+          c.result.push(`<span style="color: ${c.comboVocabulary.get(c.comboInitiator)}">${c.buffer}</span>`);
           c.comboInitiator = null;
         } else {
           c.result.push(c.buffer);
