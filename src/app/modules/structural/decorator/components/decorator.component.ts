@@ -1,19 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {DecoratorService} from '../services/decorator.service';
-import {Observable} from 'rxjs';
-import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
-import {map} from 'rxjs/operators';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
-import {InterpreterService} from '../../../behavioral/interpreter/services/interpreter.service';
+import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
 
 @Component({
   selector: 'app-decorator',
   templateUrl: './decorator.component.html',
   styleUrls: ['./decorator.component.css']
 })
-export class DecoratorComponent {
+export class DecoratorComponent implements OnInit {
   public patternCompData: PatternConfig = {
     gitLink: LINKS.structural.decorator.gitApiLink,
     wikiLink: LINKS.structural.decorator.wikiLink,
@@ -22,13 +19,11 @@ export class DecoratorComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private decorator: DecoratorService, private http: GetGitContentService, private interpreter: InterpreterService) {
+  constructor(private decorator: DecoratorService, private di: DataInjectorService) {
+  }
+
+  ngOnInit(): void {
     this.decorator.decorator();
-    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
-      map((resp: any) => {
-        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
-      })
-    );
-    this.patternCompData = Object.assign(this.patternCompData, {content$});
+    this.patternCompData = this.di.getContent(this.patternCompData);
   }
 }

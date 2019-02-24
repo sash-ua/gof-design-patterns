@@ -1,19 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {VisitorService} from '../services/visitor.service';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
-import {InterpreterService} from '../../interpreter/services/interpreter.service';
+import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
 
 @Component({
   selector: 'app-visitor',
   templateUrl: './visitor.component.html',
   styleUrls: ['./visitor.component.css']
 })
-export class VisitorComponent {
+export class VisitorComponent implements OnInit {
   public patternCompData: PatternConfig = {
     gitLink: LINKS.behavioral.visitor.gitApiLink,
     wikiLink: LINKS.behavioral.visitor.wikiLink,
@@ -22,13 +19,11 @@ export class VisitorComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private visitor: VisitorService, private http: GetGitContentService, private interpreter: InterpreterService) {
+  constructor(private visitor: VisitorService, private di: DataInjectorService) {
+  }
+
+  ngOnInit(): void {
     this.visitor.visitior();
-    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
-      map((resp: any) => {
-        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
-      })
-    );
-    this.patternCompData = Object.assign(this.patternCompData, {content$});
+    this.patternCompData = this.di.getContent(this.patternCompData);
   }
 }

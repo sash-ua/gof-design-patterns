@@ -1,15 +1,14 @@
 import { TestBed, inject } from '@angular/core/testing';
-
-import { CarAbstractFactoryService } from './object-creator.service';
+import {AbstractFactoryService} from './abstract-factory.service';
 
 describe('ObjectCreatorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CarAbstractFactoryService]
+      providers: [AbstractFactoryService]
     });
   });
 
-  it('should be created', inject([CarAbstractFactoryService], (service: CarAbstractFactoryService) => {
+  it('should be created', inject([AbstractFactoryService], (service: AbstractFactoryService) => {
     expect(service).toBeTruthy();
   }));
 });

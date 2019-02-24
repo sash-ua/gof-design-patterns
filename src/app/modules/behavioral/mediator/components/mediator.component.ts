@@ -1,19 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {MediatorService} from '../services/mediator.service';
-import {map} from 'rxjs/operators';
-import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
-import {Observable} from 'rxjs';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
-import {InterpreterService} from '../../interpreter/services/interpreter.service';
+import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
 
 @Component({
   selector: 'app-mediator',
   templateUrl: './mediator.component.html',
   styleUrls: ['./mediator.component.css']
 })
-export class MediatorComponent {
+export class MediatorComponent implements OnInit {
   public patternCompData: PatternConfig = {
     gitLink: LINKS.behavioral.mediator.gitApiLink,
     wikiLink: LINKS.behavioral.mediator.wikiLink,
@@ -22,13 +19,11 @@ export class MediatorComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private mediator: MediatorService, private http: GetGitContentService, private interpreter: InterpreterService) {
+  constructor(private mediator: MediatorService, private di: DataInjectorService) {
+  }
+
+  ngOnInit(): void {
     this.mediator.mediator();
-    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
-      map((resp: any) => {
-        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
-      })
-    );
-    this.patternCompData = Object.assign(this.patternCompData, {content$});
+    this.patternCompData = this.di.getContent(this.patternCompData);
   }
 }

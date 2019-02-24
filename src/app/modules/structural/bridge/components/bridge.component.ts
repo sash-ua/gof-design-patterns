@@ -1,19 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {BridgeService} from '../services/bridge.service';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
-import {InterpreterService} from '../../../behavioral/interpreter/services/interpreter.service';
+import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
 
 @Component({
   selector: 'app-bridge',
   templateUrl: './bridge.component.html',
   styleUrls: ['./bridge.component.css']
 })
-export class BridgeComponent {
+export class BridgeComponent implements OnInit {
   public patternCompData: PatternConfig = {
     gitLink: LINKS.structural.bridge.gitApiLink,
     wikiLink: LINKS.structural.bridge.wikiLink,
@@ -22,13 +19,11 @@ export class BridgeComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private bridge: BridgeService, private http: GetGitContentService, private interpreter: InterpreterService) {
-    bridge.bridge();
-    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
-      map((resp: any) => {
-        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
-      })
-    );
-    this.patternCompData = Object.assign(this.patternCompData, {content$});
+  constructor(private bridge: BridgeService, private di: DataInjectorService) {
+  }
+
+  ngOnInit(): void {
+    this.bridge.bridge();
+    this.patternCompData = this.di.getContent(this.patternCompData);
   }
 }

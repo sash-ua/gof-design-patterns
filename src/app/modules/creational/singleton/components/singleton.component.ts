@@ -1,19 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ELEMENTS} from '../../../../elements';
 import {LINKS} from '../../../../LINKS';
 import {SingletonService} from '../services/singleton.service';
-import {map} from 'rxjs/operators';
-import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
-import {Observable} from 'rxjs';
-import {InterpreterService} from '../../../behavioral/interpreter/services/interpreter.service';
+import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
 
 @Component({
   selector: 'app-singleton',
   templateUrl: './singleton.component.html',
   styleUrls: ['./singleton.component.css']
 })
-export class SingletonComponent {
+export class SingletonComponent implements OnInit {
   public patternCompData: PatternConfig = {
     gitLink: LINKS.creational.singleton.gitApiLink,
     wikiLink: LINKS.creational.singleton.wikiLink,
@@ -22,13 +19,11 @@ export class SingletonComponent {
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private singleton: SingletonService, private http: GetGitContentService, private interpreter: InterpreterService) {
+  constructor(private singleton: SingletonService, private di: DataInjectorService) {
+  }
+
+  ngOnInit(): void {
     this.singleton.singleton();
-    const content$: Observable<string> = this.http.getData(this.patternCompData.gitLink).pipe(
-      map((resp: any) => {
-        return resp ? this.interpreter.interpreter(atob(resp.content)) : null;
-      })
-    );
-    this.patternCompData = Object.assign(this.patternCompData, {content$});
+    this.patternCompData = this.di.getContent(this.patternCompData);
   }
 }

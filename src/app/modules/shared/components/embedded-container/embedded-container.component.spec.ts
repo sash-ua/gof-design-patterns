@@ -1,20 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {EmbeddedContainerComponent} from './embedded-container.component';
 
-import { WikiPatternDescriptionComponent } from './description.component';
 
 describe('DescriptionComponent', () => {
-  let component: WikiPatternDescriptionComponent;
-  let fixture: ComponentFixture<WikiPatternDescriptionComponent>;
+  let component: EmbeddedContainerComponent;
+  let fixture: ComponentFixture<EmbeddedContainerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WikiPatternDescriptionComponent ]
+      declarations: [EmbeddedContainerComponent]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WikiPatternDescriptionComponent);
+    fixture = TestBed.createComponent(EmbeddedContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
