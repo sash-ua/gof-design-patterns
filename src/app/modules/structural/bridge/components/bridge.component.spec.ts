@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BridgeComponent } from './bridge.component';
+import {BridgeComponent} from './bridge.component';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
+import {DataInjectorServiceStub} from '../../../../test/data-injector-service.stub';
 
 describe('BridgeComponent', () => {
   let component: BridgeComponent;
@@ -8,7 +11,13 @@ describe('BridgeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BridgeComponent ]
+      declarations: [BridgeComponent],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ],
+      providers: [
+        {provide: DataInjectorService, useValue: DataInjectorServiceStub}
+      ]
     })
     .compileComponents();
   }));

@@ -3,8 +3,8 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {AdapterComponent} from './adapter.component';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
-import {InterpreterService} from '../../../behavioral/interpreter/services/interpreter.service';
-import {AdapterService} from '../services/adapter.service';
+import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
+import {DataInjectorServiceStub} from '../../../../test/data-injector-service.stub';
 
 describe('AdapterComponent', () => {
   let component: AdapterComponent;
@@ -13,13 +13,11 @@ describe('AdapterComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AdapterComponent],
-      providers: [
-        GetGitContentService,
-        InterpreterService,
-        AdapterService
-      ],
       schemas: [
         NO_ERRORS_SCHEMA
+      ],
+      providers: [
+        {provide: DataInjectorService, useValue: DataInjectorServiceStub}
       ]
     })
     .compileComponents();
@@ -29,7 +27,6 @@ describe('AdapterComponent', () => {
     fixture = TestBed.createComponent(AdapterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    http = TestBed.get(GetGitContentService);
   });
 
   it('should create', () => {

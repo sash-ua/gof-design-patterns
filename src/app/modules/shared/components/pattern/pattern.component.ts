@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Observable} from 'rxjs';
 
 export type PatternConfig =  {
@@ -16,12 +16,8 @@ export type PatternConfig =  {
   templateUrl: './pattern.component.html',
   styleUrls: ['./pattern.component.css']
 })
-export class PatternComponent implements OnInit {
+export class PatternComponent {
   @Input() patternCompData: PatternConfig;
 
   constructor() { }
-
-  ngOnInit() {
-  }
-
 }

@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MediatorComponent } from './mediator.component';
+import {MediatorComponent} from './mediator.component';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
+import {DataInjectorServiceStub} from '../../../../test/data-injector-service.stub';
 
 describe('MediatorComponent', () => {
   let component: MediatorComponent;
@@ -8,7 +11,13 @@ describe('MediatorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MediatorComponent ]
+      declarations: [MediatorComponent],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ],
+      providers: [
+        {provide: DataInjectorService, useValue: DataInjectorServiceStub}
+      ]
     })
     .compileComponents();
   }));

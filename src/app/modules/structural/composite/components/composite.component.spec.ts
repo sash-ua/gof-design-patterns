@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CompositeComponent } from './composite.component';
+import {CompositeComponent} from './composite.component';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
+import {DataInjectorServiceStub} from '../../../../test/data-injector-service.stub';
 
 describe('CompositeComponent', () => {
   let component: CompositeComponent;
@@ -8,7 +11,13 @@ describe('CompositeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CompositeComponent ]
+      declarations: [CompositeComponent],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ],
+      providers: [
+        {provide: DataInjectorService, useValue: DataInjectorServiceStub}
+      ]
     })
     .compileComponents();
   }));
