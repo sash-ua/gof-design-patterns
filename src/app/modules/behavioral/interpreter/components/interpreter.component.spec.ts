@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { InterpreterComponent } from './interpreter.component';
+import {InterpreterComponent} from './interpreter.component';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
+import {DataInjectorServiceStub} from '../../../../test/data-injector-service.stub';
 
 describe('InterpreterComponent', () => {
   let component: InterpreterComponent;
@@ -8,7 +11,13 @@ describe('InterpreterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InterpreterComponent ]
+      declarations: [InterpreterComponent],
+      schemas: [
+        NO_ERRORS_SCHEMA
+      ],
+      providers: [
+        {provide: DataInjectorService, useValue: DataInjectorServiceStub}
+      ]
     })
     .compileComponents();
   }));

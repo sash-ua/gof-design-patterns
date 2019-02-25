@@ -1,6 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CreationalComponent } from './creational.component';
+import {CreationalComponent} from './creational.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('CreationalComponent', () => {
   let component: CreationalComponent;
@@ -8,7 +9,10 @@ describe('CreationalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreationalComponent ]
+      declarations: [CreationalComponent],
+      imports: [
+        RouterTestingModule
+      ]
     })
     .compileComponents();
   }));
