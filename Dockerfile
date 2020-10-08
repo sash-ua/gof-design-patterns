@@ -7,4 +7,4 @@ RUN npm install
 EXPOSE 4200
 CMD [ "npm", "start" ]
 
-COPY . .
+COPY . /usr/src/app
