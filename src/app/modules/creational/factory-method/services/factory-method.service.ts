@@ -5,10 +5,6 @@ import {factoryMethod} from './factory-method/factory-method';
   providedIn: 'root'
 })
 export class FactoryMethodService {
-
-  constructor() {
-  }
-
   factoryMethod() {
     factoryMethod();
   }

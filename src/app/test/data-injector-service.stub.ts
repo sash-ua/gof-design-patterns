@@ -1,7 +1,7 @@
-import {PATTERN_CONFIG_MOCK} from './pattern-config.mock';
+import {PATTERN_CONFIG_STUB} from './pattern-config.stub';
 
-export const DataInjectorServiceStub = {
-  patternCompDataStub: PATTERN_CONFIG_MOCK,
+export const DATA_INJECTOR_SERVICE_STUB = {
+  patternCompDataStub: PATTERN_CONFIG_STUB,
   getContent() {
     return this.patternCompDataStub;
   }

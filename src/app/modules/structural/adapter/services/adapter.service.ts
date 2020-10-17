@@ -5,10 +5,6 @@ import {AdapterClassLvl, AdapterObjectLvl} from './adapter/adapter';
   providedIn: 'root'
 })
 export class AdapterService {
-
-  constructor() {
-  }
-
   adapter(): void {
     AdapterObjectLvl.adpterObjLvl();
     AdapterClassLvl.adapterClassLvl();

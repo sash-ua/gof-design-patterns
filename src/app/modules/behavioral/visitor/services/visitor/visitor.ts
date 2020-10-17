@@ -2,8 +2,8 @@ export function visitior() {
   const controller = new ElementsController();
   controller.add(new ElementA());
   controller.add(new ElementB());
-  // controller.accept(new VisitorAlfa());
-  // controller.accept(new VisitorBeta());
+  controller.accept(new VisitorAlfa());
+  controller.accept(new VisitorBeta());
 }
 
 abstract class Visitor {
@@ -36,7 +36,7 @@ class VisitorBeta extends Visitor {
 
 abstract class Element {
   protected _name: string;
-  public name;
+  abstract name;
 
   public abstract accept(visitor: Visitor): void;
 }

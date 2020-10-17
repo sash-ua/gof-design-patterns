@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ELEMENTS} from '../../../../elements';
-import {LINKS} from '../../../../LINKS';
+import {ELEMENTS} from '../../../../constants/elements';
+import {Links} from '../../../../constants/links';
 import {TemplateMethodService} from '../services/template-method.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
@@ -12,14 +12,17 @@ import {DataInjectorService} from '../../../../core/services/data-injector/data-
 })
 export class TemplateMethodComponent implements OnInit {
   public patternCompData: PatternConfig = {
-    gitLink: LINKS.behavioral.templateMethod.gitApiLink,
-    wikiLink: LINKS.behavioral.templateMethod.wikiLink,
-    sampleLink: LINKS.behavioral.templateMethod.sampleLink,
+    gitLink: Links.behavioral.templateMethod.gitApiLink,
+    wikiLink: Links.behavioral.templateMethod.wikiLink,
+    sampleLink: Links.behavioral.templateMethod.sampleLink,
     linkName: ELEMENTS.linkToSampleName,
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private  tm: TemplateMethodService, private di: DataInjectorService) {
+  constructor(
+    private  tm: TemplateMethodService,
+    private di: DataInjectorService,
+  ) {
   }
 
   ngOnInit(): void {

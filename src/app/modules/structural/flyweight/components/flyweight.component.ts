@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ELEMENTS} from '../../../../elements';
-import {LINKS} from '../../../../LINKS';
+import {ELEMENTS} from '../../../../constants/elements';
+import {Links} from '../../../../constants/links';
 import {FlyweightService} from '../services/flyweight.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
@@ -12,14 +12,17 @@ import {DataInjectorService} from '../../../../core/services/data-injector/data-
 })
 export class FlyweightComponent implements OnInit {
   public patternCompData: PatternConfig = {
-    gitLink: LINKS.structural.flyweight.gitApiLink,
-    wikiLink: LINKS.structural.flyweight.wikiLink,
-    sampleLink: LINKS.structural.flyweight.sampleLink,
+    gitLink: Links.structural.flyweight.gitApiLink,
+    wikiLink: Links.structural.flyweight.wikiLink,
+    sampleLink: Links.structural.flyweight.sampleLink,
     linkName: ELEMENTS.linkToSampleName,
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private fl: FlyweightService, private di: DataInjectorService) {
+  constructor(
+    private fl: FlyweightService,
+    private di: DataInjectorService,
+  ) {
   }
 
   ngOnInit(): void {

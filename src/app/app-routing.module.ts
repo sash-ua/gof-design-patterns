@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {PreloadAllModules, RouterModule} from '@angular/router';
-import {ROUTES} from './routes';
+import {ROUTES} from './constants/routes';
 
 
 @NgModule({

@@ -5,10 +5,6 @@ import {flyweight} from './flyweight/flyweight';
   providedIn: 'root'
 })
 export class FlyweightService {
-
-  constructor() {
-  }
-
   flyweight() {
     flyweight();
   }

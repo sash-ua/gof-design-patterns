@@ -5,10 +5,6 @@ import {composite} from './composite/composite';
   providedIn: 'root'
 })
 export class CompositeService {
-
-  constructor() {
-  }
-
   composite() {
     composite();
   }

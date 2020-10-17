@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ELEMENTS} from '../../../../elements';
-import {LINKS} from '../../../../LINKS';
+import {ELEMENTS} from '../../../../constants/elements';
+import {Links} from '../../../../constants/links';
 import {FacadeService} from '../services/facade.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
@@ -12,14 +12,17 @@ import {DataInjectorService} from '../../../../core/services/data-injector/data-
 })
 export class FacadeComponent implements OnInit {
   public patternCompData: PatternConfig = {
-    gitLink: LINKS.structural.facade.gitApiLink,
-    wikiLink: LINKS.structural.facade.wikiLink,
-    sampleLink: LINKS.structural.facade.sampleLink,
+    gitLink: Links.structural.facade.gitApiLink,
+    wikiLink: Links.structural.facade.wikiLink,
+    sampleLink: Links.structural.facade.sampleLink,
     linkName: ELEMENTS.linkToSampleName,
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private  f: FacadeService, private di: DataInjectorService) {
+  constructor(
+    private  f: FacadeService,
+    private di: DataInjectorService,
+  ) {
   }
 
   ngOnInit(): void {

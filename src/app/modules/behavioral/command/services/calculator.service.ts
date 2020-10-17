@@ -5,10 +5,6 @@ import {calculator} from './command/command';
   providedIn: 'root'
 })
 export class CalculatorService {
-
-  constructor() {
-  }
-
   public calculator() {
     calculator();
   }

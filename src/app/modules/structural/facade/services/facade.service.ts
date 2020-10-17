@@ -5,10 +5,6 @@ import {facade} from './facade/facade';
   providedIn: 'root'
 })
 export class FacadeService {
-
-  constructor() {
-  }
-
   facade() {
     facade();
   }

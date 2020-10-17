@@ -1,6 +1,6 @@
 export namespace AdapterObjectLvl {
   export function adpterObjLvl(): void {
-    // console.log(new Adapter().request({body: 'go'}));
+    console.log(new Adapter().request({body: 'go'}));
   }
 
   export interface Answer {
@@ -29,7 +29,7 @@ export namespace AdapterObjectLvl {
 
 export namespace AdapterClassLvl {
   export function adapterClassLvl(): void {
-    // console.log(new Adapter().request({body: 'go'}));
+    console.log(new Adapter().request({body: 'go'}));
   }
 
   export interface Answer {

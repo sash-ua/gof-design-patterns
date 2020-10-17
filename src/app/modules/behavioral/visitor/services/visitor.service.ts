@@ -5,10 +5,6 @@ import {visitior} from './visitor/visitor';
   providedIn: 'root'
 })
 export class VisitorService {
-
-  constructor() {
-  }
-
   visitior() {
     visitior();
   }

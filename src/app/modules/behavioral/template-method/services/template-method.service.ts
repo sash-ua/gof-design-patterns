@@ -5,10 +5,6 @@ import {templateMethod} from './template-method/template-method';
   providedIn: 'root'
 })
 export class TemplateMethodService {
-
-  constructor() {
-  }
-
   templateMethod() {
     templateMethod();
   }

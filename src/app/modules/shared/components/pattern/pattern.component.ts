@@ -1,14 +1,14 @@
 import {Component, Input} from '@angular/core';
 import {Observable} from 'rxjs';
 
-export type PatternConfig =  {
-  gitLink: string,
-  wikiLink: string,
-  sampleLink: string,
-  linkName: string,
-  sample: string,
-  content$?: Observable<string>
-};
+export interface PatternConfig {
+  gitLink: string;
+  wikiLink: string;
+  sampleLink: string;
+  linkName: string;
+  sample: string;
+  content$?: Observable<string>;
+}
 
 
 @Component({
@@ -18,6 +18,4 @@ export type PatternConfig =  {
 })
 export class PatternComponent {
   @Input() patternCompData: PatternConfig;
-
-  constructor() { }
 }

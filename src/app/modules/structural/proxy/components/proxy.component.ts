@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ELEMENTS} from '../../../../elements';
-import {LINKS} from '../../../../LINKS';
+import {ELEMENTS} from '../../../../constants/elements';
+import {Links} from '../../../../constants/links';
 import {ProxyService} from '../services/proxy.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
@@ -12,14 +12,17 @@ import {DataInjectorService} from '../../../../core/services/data-injector/data-
 })
 export class ProxyComponent implements OnInit {
   public patternCompData: PatternConfig = {
-    gitLink: LINKS.structural.proxy.gitApiLink,
-    wikiLink: LINKS.structural.proxy.wikiLink,
-    sampleLink: LINKS.structural.proxy.sampleLink,
+    gitLink: Links.structural.proxy.gitApiLink,
+    wikiLink: Links.structural.proxy.wikiLink,
+    sampleLink: Links.structural.proxy.sampleLink,
     linkName: ELEMENTS.linkToSampleName,
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private proxy: ProxyService, private di: DataInjectorService) {
+  constructor(
+    private proxy: ProxyService,
+    private di: DataInjectorService,
+  ) {
   }
 
   ngOnInit(): void {

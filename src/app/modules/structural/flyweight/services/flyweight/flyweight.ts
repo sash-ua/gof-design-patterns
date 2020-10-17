@@ -2,11 +2,11 @@ export function flyweight() {
   const printer = new Printer();
   const printA = printer.get('a');
   printA.config({value: 'a'});
-  // console.log(printA.draw());
+  console.log(printA.draw());
   const printB = printer.get('b');
   printB.config({value: 'b'});
-  // console.log(printB.draw());
-  // console.log(printB);
+  console.log(printB.draw());
+  console.log(printB);
   printer.remove('a');
 }
 
@@ -39,9 +39,6 @@ interface Symbol {
 
 export class Character implements Symbol {
   private state: State = {value: '', font: 'Times New Roman', color: 'black'};
-
-  constructor() {
-  }
 
   public config(config: State): void {
     this.state = Object.assign(this.state, config);

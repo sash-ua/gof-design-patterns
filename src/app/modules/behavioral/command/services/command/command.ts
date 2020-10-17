@@ -1,13 +1,13 @@
 export function calculator() {
   const calc = new CalculatorService();
-  // calc.add([1, 2]);
-  // calc.cashedResult(0);
-  // calc.sub([1, 2]);
-  // calc.div([1, 2]);
-  // calc.div([1, 0]);
-  // calc.mult([22, 2]);
-  // calc.undo();
-  // calc.mult([22, 3]);
+  calc.add([1, 2]);
+  calc.cashedResult(0);
+  calc.sub([1, 2]);
+  calc.div([1, 2]);
+  calc.div([1, 0]);
+  calc.mult([22, 2]);
+  calc.undo();
+  calc.mult([22, 3]);
 }
 
 export class CalculatorService {

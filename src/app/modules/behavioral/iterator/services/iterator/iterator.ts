@@ -7,11 +7,11 @@ export function iterator() {
   map.set('third', 3);
   const keyIterator = map.createKeyIterator();
   for (let i = keyIterator.first(); !keyIterator.isDone(); i = keyIterator.next()) {
-    // console.log(i);
+    console.log(i);
   }
   const valIterator = map.createValIterator();
   for (let i = valIterator.first(); !valIterator.isDone(); i = valIterator.next()) {
-    // console.log(i);
+    console.log(i);
   }
 }
 

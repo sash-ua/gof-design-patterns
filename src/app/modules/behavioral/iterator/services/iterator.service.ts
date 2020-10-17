@@ -5,10 +5,6 @@ import {iterator} from './iterator/iterator';
   providedIn: 'root'
 })
 export class IteratorService {
-
-  constructor() {
-  }
-
   iterator() {
     iterator();
   }

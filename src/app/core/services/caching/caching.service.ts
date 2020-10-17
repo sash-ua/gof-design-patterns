@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {GitContentResponse} from '../http/get-git-content.service';
 import {StorageService} from '../storage/storage.service';
 import {HttpResponse} from '@angular/common/http';
-import {CONSTS} from '../../../constants';
+import {CACHE_NAME} from '../../../constants/cache-name';
 
 const maxAge = 60000;
 
@@ -16,7 +16,7 @@ export interface CacheEntry {
   providedIn: 'root'
 })
 export class CachingService {
-  private name = CONSTS.cacheName;
+  private name = CACHE_NAME.cacheName;
   private cache: Map<string, CacheEntry>;
 
   constructor(private storage: StorageService) {

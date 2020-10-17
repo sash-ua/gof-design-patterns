@@ -6,10 +6,6 @@ import {abstractFactory} from './abstract-factory/abstract-factory';
   providedIn: 'root'
 })
 export class AbstractFactoryService {
-
-  constructor() {
-  }
-
   abstractFactory() {
     abstractFactory();
   }

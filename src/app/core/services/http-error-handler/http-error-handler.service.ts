@@ -6,13 +6,10 @@ import {HttpErrorResponse} from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpErrorHandlerService {
-
-  constructor() {
-  }
-
-  public handleError<T>(serviceName = '') {
+  public handleError<T>(serviceName = ''): (e: HttpErrorResponse) => Observable<boolean> {
     return (e: HttpErrorResponse): Observable<boolean> => {
-      console.error(`Code: ${e.status}, \n Body: ${e.error} in ${serviceName}`);
+      const errorMsg = `Code: ${e.status}, \n Body: ${e.error} in ${serviceName}`;
+      console.error(errorMsg);
       return of(false);
     };
   }

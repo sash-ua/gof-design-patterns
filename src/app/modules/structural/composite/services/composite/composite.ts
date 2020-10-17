@@ -9,9 +9,9 @@ export function composite() {
   picture.addElement(line);
   picture.addElement(circle);
   picture.addElement(pip);
-  // console.log(picture.getChild(line));
-  // console.log(picture.getChildren());
-  // console.log(picture.getChild(outPictureEl));
+  console.log(picture.getChild(line));
+  console.log(picture.getChildren());
+  console.log(picture.getChild(outPictureEl));
 }
 
 interface ElState {

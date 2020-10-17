@@ -1,8 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import {Component, Input, OnInit,} from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
@@ -14,7 +10,9 @@ export class EmbeddedContainerComponent implements OnInit {
   public trustedUrl: SafeUrl;
   @Input() queryString: string;
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(
+    private sanitizer: DomSanitizer,
+  ) {
   }
 
   ngOnInit() {
