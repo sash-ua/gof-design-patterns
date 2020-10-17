@@ -6,10 +6,6 @@ import {buildHouse} from './builder/builder';
   providedIn: 'root'
 })
 export class BuilderService {
-
-  constructor() {
-  }
-
   buildHouse() {
     buildHouse();
   }

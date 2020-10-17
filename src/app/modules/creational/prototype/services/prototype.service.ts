@@ -5,10 +5,6 @@ import {prototype} from './prototype/prototype';
   providedIn: 'root'
 })
 export class PrototypeService {
-
-  constructor() {
-  }
-
   prototype() {
     prototype();
   }

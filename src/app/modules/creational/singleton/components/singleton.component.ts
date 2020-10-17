@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ELEMENTS} from '../../../../elements';
-import {LINKS} from '../../../../LINKS';
+import {ELEMENTS} from '../../../../constants/elements';
+import {Links} from '../../../../constants/links';
 import {SingletonService} from '../services/singleton.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
@@ -12,14 +12,17 @@ import {DataInjectorService} from '../../../../core/services/data-injector/data-
 })
 export class SingletonComponent implements OnInit {
   public patternCompData: PatternConfig = {
-    gitLink: LINKS.creational.singleton.gitApiLink,
-    wikiLink: LINKS.creational.singleton.wikiLink,
-    sampleLink: LINKS.creational.singleton.sampleLink,
+    gitLink: Links.creational.singleton.gitApiLink,
+    wikiLink: Links.creational.singleton.wikiLink,
+    sampleLink: Links.creational.singleton.sampleLink,
     linkName: ELEMENTS.linkToSampleName,
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private singleton: SingletonService, private di: DataInjectorService) {
+  constructor(
+    private singleton: SingletonService,
+    private di: DataInjectorService,
+  ) {
   }
 
   ngOnInit(): void {

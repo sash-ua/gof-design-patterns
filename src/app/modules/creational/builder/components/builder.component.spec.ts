@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {BuilderComponent} from './builder.component';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
-import {DataInjectorServiceStub} from '../../../../test/data-injector-service.stub';
+import {DATA_INJECTOR_SERVICE_STUB} from '../../../../test/data-injector-service.stub';
 
 describe('BuilderComponent', () => {
   let component: BuilderComponent;
@@ -16,7 +16,7 @@ describe('BuilderComponent', () => {
         NO_ERRORS_SCHEMA
       ],
       providers: [
-        {provide: DataInjectorService, useValue: DataInjectorServiceStub}
+        {provide: DataInjectorService, useValue: DATA_INJECTOR_SERVICE_STUB}
       ]
     })
     .compileComponents();

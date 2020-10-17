@@ -4,9 +4,9 @@ export function chainOfResponsibility() {
   const buttonHandler = new ButtonHandler();
   buttonHandler.successor = appHandler;    // Chain: button -> app
   dialogHandler.successor = buttonHandler; // Chain: dialog -> button -> app
-  // dialogHandler.handleHelp({name: 'dialog'});  // This is help dialog!
-  // dialogHandler.handleHelp({name: 'button'});  // This is help button!
-  // dialogHandler.handleHelp({name: 'q'});       // This is help app!
+  dialogHandler.handleHelp({name: 'dialog'});  // This is help dialog!
+  dialogHandler.handleHelp({name: 'button'});  // This is help button!
+  dialogHandler.handleHelp({name: 'q'});       // This is help app!
 }
 
 export interface HelpEvent {

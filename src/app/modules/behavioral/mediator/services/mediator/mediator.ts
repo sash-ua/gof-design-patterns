@@ -4,8 +4,8 @@ export function mediatorE() {
   const coll2 = new Colleague2(mediator);
   mediator.c1 = coll1;
   mediator.c2 = coll2;
-  // coll1.send('msg from 1');
-  // coll2.send('msg from 2');
+  coll1.send('msg from 1');
+  coll2.send('msg from 2');
 }
 
 abstract class Mediator {

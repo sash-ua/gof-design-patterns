@@ -5,10 +5,6 @@ import {proxyE} from './proxy/proxy';
   providedIn: 'root'
 })
 export class ProxyService {
-
-  constructor() {
-  }
-
   proxy() {
     proxyE();
   }

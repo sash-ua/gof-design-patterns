@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ELEMENTS} from '../../../../elements';
-import {LINKS} from '../../../../LINKS';
+import {ELEMENTS} from '../../../../constants/elements';
+import {Links} from '../../../../constants/links';
 import {AdapterService} from '../services/adapter.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
@@ -12,14 +12,17 @@ import {DataInjectorService} from '../../../../core/services/data-injector/data-
 })
 export class AdapterComponent implements OnInit {
   public patternCompData: PatternConfig = {
-    gitLink: LINKS.structural.adapter.gitApiLink,
-    wikiLink: LINKS.structural.adapter.wikiLink,
-    sampleLink: LINKS.structural.adapter.sampleLink,
+    gitLink: Links.structural.adapter.gitApiLink,
+    wikiLink: Links.structural.adapter.wikiLink,
+    sampleLink: Links.structural.adapter.sampleLink,
     linkName: ELEMENTS.linkToSampleName,
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private  adapter: AdapterService, private di: DataInjectorService) {
+  constructor(
+    private  adapter: AdapterService,
+    private di: DataInjectorService,
+  ) {
   }
 
   ngOnInit(): void {

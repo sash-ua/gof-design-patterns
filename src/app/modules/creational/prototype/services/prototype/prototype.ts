@@ -1,11 +1,11 @@
 export function prototype() {
   const proto = new Keratinocytes();
   const clone = proto.clone();
-  // console.log('proto size', proto.size);
-  // console.log('clone size', clone.size);
+  console.log('proto size', proto.size);
+  console.log('clone size', clone.size);
   proto.feedsOn([1, 2, 3]);
-  // console.log('proto size after eating', proto.size);
-  // console.log('clone size', clone.size);
+  console.log('proto size after eating', proto.size);
+  console.log('clone size', clone.size);
 }
 
 interface Cell {

@@ -5,10 +5,6 @@ import {bridge} from './bridge/bridge';
   providedIn: 'root'
 })
 export class BridgeService {
-
-  constructor() {
-  }
-
   bridge() {
     bridge();
   }

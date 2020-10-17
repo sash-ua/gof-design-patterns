@@ -1,7 +1,7 @@
 export function proxyE() {
   const rs: RealSubject = new RealSubject();
   const proxy: Proxy = new Proxy(rs);
-  // proxy.request('some request');
+  proxy.request('some request');
 }
 
 interface Subject {

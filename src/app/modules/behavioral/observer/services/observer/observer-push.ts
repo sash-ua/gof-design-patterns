@@ -3,7 +3,7 @@ export function pushObserver() {
   subj.attach(new PushObserver1());
   subj.attach(new PushObserver2());
   subj.state = 'Some state for push example';
-  // subj.notify();
+  subj.notify();
 }
 
 abstract class Subject {

@@ -3,16 +3,16 @@ import {BubbleSort} from './bubblesort';
 import {arrayGen} from './array-generator';
 
 export function strategy() {
-  // const arr = arrayGen(100, 100);
-  // console.log('unsorted', arr);
-  // const qStrategy = new SetContext(new QuickSortStrategy());
-  // qStrategy.sort(arr);
-  // console.log('QuickSortStrategy', qStrategy.check);
-  // const arr2 = arrayGen(100, 100);
-  // console.log('unsorted', arr2);
-  // const bStrategy = new SetContext(new BubbleSortStrategy());
-  // bStrategy.sort(arr2);
-  // console.log('BubbleSortStrategy', bStrategy.check);
+  const arr = arrayGen(100, 100);
+  console.log('unsorted', arr);
+  const qStrategy = new SetContext(new QuickSortStrategy());
+  qStrategy.sort(arr);
+  console.log('QuickSortStrategy', qStrategy.result);
+  const arr2 = arrayGen(100, 100);
+  console.log('unsorted', arr2);
+  const bStrategy = new SetContext(new BubbleSortStrategy());
+  bStrategy.sort(arr2);
+  console.log('BubbleSortStrategy', bStrategy.result);
 }
 
 abstract class Strategy {

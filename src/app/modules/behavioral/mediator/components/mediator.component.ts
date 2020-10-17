@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ELEMENTS} from '../../../../elements';
-import {LINKS} from '../../../../LINKS';
+import {ELEMENTS} from '../../../../constants/elements';
+import {Links} from '../../../../constants/links';
 import {MediatorService} from '../services/mediator.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
@@ -12,14 +12,17 @@ import {DataInjectorService} from '../../../../core/services/data-injector/data-
 })
 export class MediatorComponent implements OnInit {
   public patternCompData: PatternConfig = {
-    gitLink: LINKS.behavioral.mediator.gitApiLink,
-    wikiLink: LINKS.behavioral.mediator.wikiLink,
-    sampleLink: LINKS.behavioral.mediator.sampleLink,
+    gitLink: Links.behavioral.mediator.gitApiLink,
+    wikiLink: Links.behavioral.mediator.wikiLink,
+    sampleLink: Links.behavioral.mediator.sampleLink,
     linkName: ELEMENTS.linkToSampleName,
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private mediator: MediatorService, private di: DataInjectorService) {
+  constructor(
+    private mediator: MediatorService,
+    private di: DataInjectorService,
+  ) {
   }
 
   ngOnInit(): void {

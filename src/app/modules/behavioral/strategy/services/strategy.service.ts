@@ -5,10 +5,6 @@ import {strategy} from './strategy/strategy';
   providedIn: 'root'
 })
 export class StrategyService {
-
-  constructor() {
-  }
-
   strategy() {
     strategy();
   }

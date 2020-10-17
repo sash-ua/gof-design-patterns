@@ -1,8 +1,8 @@
 export function facade() {
   const f = new Facade();
-  // f.operationAB();
-  // f.operationAD();
-  // f.operationCD();
+  f.operationAB();
+  f.operationAD();
+  f.operationCD();
 }
 
 class Facade {

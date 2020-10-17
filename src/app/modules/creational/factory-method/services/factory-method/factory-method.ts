@@ -15,9 +15,9 @@ export function factoryMethod() {
   const mustang = createProduct('Mustang');
   const mustangTurbo = createProduct('Mustang turbo');
   const focus = createProduct('Focus');
-  // console.log(mustang);
-  // console.log(mustangTurbo);
-  // console.log(focus);
+  console.log(mustang);
+  console.log(mustangTurbo);
+  console.log(focus);
 }
 
 interface EveryCar {

@@ -5,13 +5,7 @@ import {decorator} from './decorator/decorator';
   providedIn: 'root'
 })
 export class DecoratorService {
-
-  constructor() {
-  }
-
   decorator() {
     decorator();
   }
-
-
 }

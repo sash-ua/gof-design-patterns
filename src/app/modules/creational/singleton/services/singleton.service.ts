@@ -5,10 +5,6 @@ import {singleton} from './singleton/singleton';
   providedIn: 'root'
 })
 export class SingletonService {
-
-  constructor() {
-  }
-
   singleton() {
     singleton();
   }

@@ -5,10 +5,6 @@ import {state} from './state/state';
   providedIn: 'root'
 })
 export class StateService {
-
-  constructor() {
-  }
-
   state() {
     state();
   }

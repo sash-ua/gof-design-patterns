@@ -3,7 +3,7 @@ export function buildHouse() {
   const director = new ConstructionDirector(builder);
   director.construct();
   const house = builder.house;
-  // console.log('Builder: ', house.showHouse());
+  console.log('Builder: ', house.showHouse());
 }
 
 type House = Array<string>;
@@ -27,7 +27,7 @@ class BuildHouse implements Building {
 }
 
 abstract class Builder {
-  public house: BuildHouse;
+  abstract house: BuildHouse;
 
   public abstract buildBaseFloor();
 

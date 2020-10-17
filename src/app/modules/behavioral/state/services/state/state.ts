@@ -1,8 +1,8 @@
 export function state() {
   const man = new Man();
-  // man.behavior(); // 'Morning routine' by default
-  // man.behavior(Time.evening); // morning -> noon, therefore state does not changed
-  // man.behavior(Time.noon);  // 'Noon routine'
+  man.behavior(); // 'Morning routine' by default
+  man.behavior(Time.evening); // morning -> noon, therefore state does not changed
+  man.behavior(Time.noon);  // 'Noon routine'
 }
 
 export enum Time {

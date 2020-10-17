@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ELEMENTS} from '../../../../elements';
-import {LINKS} from '../../../../LINKS';
+import {ELEMENTS} from '../../../../constants/elements';
+import {Links} from '../../../../constants/links';
 import {MementoService} from '../services/memento.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
@@ -12,14 +12,17 @@ import {DataInjectorService} from '../../../../core/services/data-injector/data-
 })
 export class MementoComponent implements OnInit {
   public patternCompData: PatternConfig = {
-    gitLink: LINKS.behavioral.memento.gitApiLink,
-    wikiLink: LINKS.behavioral.memento.wikiLink,
-    sampleLink: LINKS.behavioral.memento.sampleLink,
+    gitLink: Links.behavioral.memento.gitApiLink,
+    wikiLink: Links.behavioral.memento.wikiLink,
+    sampleLink: Links.behavioral.memento.sampleLink,
     linkName: ELEMENTS.linkToSampleName,
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private memento: MementoService, private di: DataInjectorService) {
+  constructor(
+    private memento: MementoService,
+    private di: DataInjectorService,
+  ) {
   }
 
   ngOnInit(): void {

@@ -6,10 +6,6 @@ import {pushObserver} from './observer/observer-push';
   providedIn: 'root'
 })
 export class ObserverService {
-
-  constructor() {
-  }
-
   pullObserver() {
     pullObserver();
   }

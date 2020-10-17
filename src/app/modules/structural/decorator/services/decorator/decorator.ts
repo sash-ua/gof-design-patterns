@@ -1,8 +1,8 @@
 export function decorator() {
   const alex = new Developer({position: 'front-end', name: 'Alex'});
   const str = alex.htmlElem('some string');
-  // console.log(alex.employeeInfo());
-  // console.log(str);
+  console.log(alex.employeeInfo());
+  console.log(str);
 }
 
 function department(obj: any) {

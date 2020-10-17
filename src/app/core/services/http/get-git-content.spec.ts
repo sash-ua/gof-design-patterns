@@ -1,9 +1,9 @@
 import {TestBed} from '@angular/core/testing';
 
-import {GetGitContentService} from './get-git-content.service';
-import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
+import {GetGitContentService, GitContentResponse} from './get-git-content.service';
+import {HTTP_INTERCEPTORS, HttpClient, HttpResponse} from '@angular/common/http';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {CachingInterseptorServiceStub} from '../../../test/CachingInterseptorServiceStub';
+import {CachingInterceptorServiceMock} from '../../../test/CachingInterceptorServiceMock';
 
 describe('GetGitContentService', () => {
   let httpClient: HttpClient;
@@ -18,7 +18,7 @@ describe('GetGitContentService', () => {
         HttpClientTestingModule
       ],
       providers: [
-        {provide: HTTP_INTERCEPTORS, useClass: CachingInterseptorServiceStub, multi: true}
+        {provide: HTTP_INTERCEPTORS, useClass: CachingInterceptorServiceMock, multi: true}
       ]
     });
     service = TestBed.get(GetGitContentService);
@@ -41,7 +41,7 @@ describe('GetGitContentService', () => {
   }));
   it('should return response', () => {
     const req = service.getData(testUrl).subscribe(r => {
-      expect(r).toEqual(resp);
+      expect(r).toEqual(resp as unknown as GitContentResponse);
     });
     const httpRequest = httpMock.expectOne(testUrl);
     httpRequest.flush(resp);

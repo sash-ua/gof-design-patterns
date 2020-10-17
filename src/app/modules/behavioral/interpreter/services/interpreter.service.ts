@@ -5,10 +5,6 @@ import {interpreter} from './interpreter/interpreter';
   providedIn: 'root'
 })
 export class InterpreterService {
-
-  constructor() {
-  }
-
   interpreter(v: any): any {
     return interpreter(v);
   }

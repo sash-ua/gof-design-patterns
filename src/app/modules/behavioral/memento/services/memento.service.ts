@@ -5,10 +5,6 @@ import {memento} from './memento/memento';
   providedIn: 'root'
 })
 export class MementoService {
-
-  constructor() {
-  }
-
   memento() {
     memento();
   }

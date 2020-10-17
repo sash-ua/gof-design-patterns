@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ELEMENTS} from '../../../../elements';
-import {LINKS} from '../../../../LINKS';
+import {ELEMENTS} from '../../../../constants/elements';
+import {Links} from '../../../../constants/links';
 import {StrategyService} from '../services/strategy.service';
 import {PatternConfig} from '../../../shared/components/pattern/pattern.component';
 import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
@@ -12,14 +12,17 @@ import {DataInjectorService} from '../../../../core/services/data-injector/data-
 })
 export class StrategyComponent implements OnInit {
   public patternCompData: PatternConfig = {
-    gitLink: LINKS.behavioral.strategy.gitApiLink,
-    wikiLink: LINKS.behavioral.strategy.wikiLink,
-    sampleLink: LINKS.behavioral.strategy.sampleLink,
+    gitLink: Links.behavioral.strategy.gitApiLink,
+    wikiLink: Links.behavioral.strategy.wikiLink,
+    sampleLink: Links.behavioral.strategy.sampleLink,
     linkName: ELEMENTS.linkToSampleName,
     sample: ELEMENTS.sampleTitle
   };
 
-  constructor(private  strategy: StrategyService, private di: DataInjectorService) {
+  constructor
+  (private  strategy: StrategyService,
+   private di: DataInjectorService,
+  ) {
   }
 
   ngOnInit(): void {

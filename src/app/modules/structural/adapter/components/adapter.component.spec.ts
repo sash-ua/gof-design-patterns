@@ -1,23 +1,23 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {AdapterComponent} from './adapter.component';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {GetGitContentService} from '../../../../core/services/http/get-git-content.service';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {DataInjectorService} from '../../../../core/services/data-injector/data-injector.service';
-import {DataInjectorServiceStub} from '../../../../test/data-injector-service.stub';
+import {DATA_INJECTOR_SERVICE_STUB} from '../../../../test/data-injector-service.stub';
 
 describe('AdapterComponent', () => {
   let component: AdapterComponent;
   let fixture: ComponentFixture<AdapterComponent>;
-  let http: GetGitContentService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AdapterComponent],
+      declarations: [
+        AdapterComponent,
+      ],
       schemas: [
-        NO_ERRORS_SCHEMA
+        CUSTOM_ELEMENTS_SCHEMA,
       ],
       providers: [
-        {provide: DataInjectorService, useValue: DataInjectorServiceStub}
+        {provide: DataInjectorService, useValue: DATA_INJECTOR_SERVICE_STUB}
       ]
     })
     .compileComponents();

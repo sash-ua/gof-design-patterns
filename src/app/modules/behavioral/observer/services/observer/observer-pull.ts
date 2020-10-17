@@ -3,7 +3,7 @@ export function pullObserver() {
   sub.attach(new Observer1(sub));
   sub.attach(new Observer2(sub));
   sub.state = 'Some state...';
-  // sub.notify();
+  sub.notify();
 }
 
 abstract class Subject {
